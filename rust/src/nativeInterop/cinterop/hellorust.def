@@ -1,0 +1,6 @@
+package = hellorust
+
+staticLibraries.mingw = hellorust.dll
+staticLibraries.linux = libhellorust.a
+staticLibraries.osx = libhellorust.a
+staticLibraries.ios = libhellorust.a

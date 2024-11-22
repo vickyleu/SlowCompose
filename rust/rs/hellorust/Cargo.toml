@@ -1,0 +1,30 @@
+[package]
+name = "hellorust_core"
+version = "0.0.1"
+edition = "2021"
+
+#[lib]
+#name = "hellorust_core"
+#crate-type = ["cdylib"]
+
+
+#[profile.dev]
+#debug = true
+
+[profile.dev]
+lto = true
+debug-assertions = false
+opt-level = 'z'
+strip = true
+codegen-units = 1
+panic = 'abort'
+[profile.release]
+lto = true
+debug-assertions = false
+opt-level = 'z'
+strip = true
+codegen-units = 1
+panic = 'abort'
+
+
+[dependencies]

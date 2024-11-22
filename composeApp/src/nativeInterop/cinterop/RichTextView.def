@@ -1,0 +1,4 @@
+language = Objective-C
+
+#headers = RichTextView-Swift.h
+linkerOpts = -framework RichTextView

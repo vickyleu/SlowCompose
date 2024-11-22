@@ -1,0 +1,3 @@
+language = Objective-C
+headers = BJLiveCore-umbrella.h
+#linkerOpts = -framework BJLiveCore

@@ -1,0 +1,10 @@
+APP_NAME=优课UOOC
+BUNDLE_ID=com.UOOC.UoocOnline
+CFBundleShortVersionString=2.1.9
+CFBundleVersion=75
+CG_PDF_VERBOSE=1
+OBJROOT=../../buildOut/SlowCompose/subprojects/composeApp/cocoapods/iosApp
+PODS_BUILD_DIR=../../buildOut/SlowCompose/subprojects/composeApp/cocoapods/iosApp
+SYMROOT=../../buildOut/SlowCompose/subprojects/composeApp/cocoapods/iosApp
+SYNTHETIC_BUILD_DIR=../../buildOut/SlowCompose/subprojects/composeApp/cocoapods/synthetic/ios/build/Release$(EFFECTIVE_PLATFORM_NAME)
+TEAM_ID=9P6269MA4E

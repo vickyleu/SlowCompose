@@ -1,0 +1,36 @@
+[package]
+name = "hellorust-native"
+version = "0.0.1"
+edition = "2021"
+
+[lib]
+name = "hellorust"
+crate-type = ["staticlib"]
+
+
+
+#[profile.dev]
+#debug = true
+
+[profile.dev]
+lto = true
+debug-assertions = false
+opt-level = 'z'
+strip = true
+codegen-units = 1
+panic = 'abort'
+[profile.release]
+lto = true
+debug-assertions = false
+opt-level = 'z'
+strip = true
+codegen-units = 1
+panic = 'abort'
+
+
+
+[dependencies]
+hellorust_core = { path = "../hellorust" }
+
+[build-dependencies]
+cbindgen = "0.24.3"

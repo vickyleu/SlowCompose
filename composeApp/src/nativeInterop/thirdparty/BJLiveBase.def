@@ -1,0 +1,3 @@
+language = Objective-C
+headers = BJLiveBase-umbrella.h
+linkerOpts = -framework BJLiveBase -framework CoreTelephony  -framework MobileCoreServices -framework UniformTypeIdentifiers -framework MetalKit

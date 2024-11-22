@@ -1,0 +1,266 @@
+[versions]
+agp = "8.7.2"
+compose-plugin = "1.7.1"
+kotlin = "2.1.0-RC2"
+ksp = "2.1.0-RC2-1.0.28"
+jvmTarget = "17"
+
+iosDeploymentTarget = "13.0"
+
+buildkonfig = "0.15.2"
+ksoup = "0.2.0"
+rust = "1.0.0"
+jetpack-compose-bom = "2024.11.00"
+coroutines-bom = "1.9.0"
+
+android-compileSdk = "35"
+android-minSdk = "28"
+android-targetSdk = "33"
+
+
+atomicfu = "0.26.0"
+finclip = "2.44.9"
+wemeet = "3.12.401.11"
+baijia-live = "4.18.0"
+baijia-live-ios = "~> 4.15.0"
+
+
+baijia-playback = "4.13.0"
+
+androidx-navigation = "2.8.0-alpha02"
+
+koin-bom = "4.0.0"
+coil-bom = "3.0.0"
+javapoet = "1.14.2"
+dokka = "1.9.20"
+
+#noinspection GradleDependency
+slf4j = "1.7.36"
+okio = "3.9.1"
+kotlinxDatetime = "0.6.1"
+kotlinxIoCore = "0.5.4"
+
+
+
+sqldelight = "2.0.2"
+
+
+
+androidx-appcompat = "1.7.0"
+androidx-lifecycle = "2.8.4"
+androidx-activityCompose = "1.9.3"
+androidx-core-ktx = "1.15.0"
+androidx-espresso-core = "3.6.1"
+androidx-test-junit = "1.2.1"
+settings = "1.2.0"
+
+
+lottie = "2.0.0-rc02"
+ktor-bom = "3.0.1"
+serialization = "1.7.3"
+logback = "1.5.6"
+polyv = "1.0.2"
+
+#noinspection GradleDependency
+ktlint-plugin = "4.2.0"
+junit = "5.10.1"
+
+androidx-annotation = "1.9.1"
+
+multiplatform-paging = "3.3.0-alpha02-0.5.1"
+
+compose-webview = "1.0.2"
+compose-views = "1.0.2"
+compose-imagepicker = "1.0.2"
+compose-filepicker = "1.0.2"
+compose-scale = "1.0.2"
+compose-dropdown = "1.0.2"
+compose-sonner = "1.0.2"
+compose-swiperefresh = "1.0.2"
+compose-documentviewer = "1.0.2"
+richtext = "1.0.2"
+
+easyqrscan = "0.1.3"
+compose-voyager = "1.1.0-beta03"
+lifecycleCommonJvm = "2.8.7"
+# https://github.com/androidx/media/issues/1237#issuecomment-2258400323
+media3 = "1.4.1"
+cameraCore = "1.4.0"
+permissionsCompose = "0.18.0"
+splashscreen = "1.0.1"
+kermit = "2.0.4"
+
+[libraries]
+androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissionsCompose" }
+
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCore" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraCore" }
+
+finclip = { module = "com.finogeeks.lib:finapplet", version.ref = "finclip" }
+wemeet = { module = "com.tencent.wemeet:tm-android-sdk", version.ref = "wemeet" }
+baijia-live = { module = "com.baijiayun.live:liveplayer-sdk-ui", version.ref = "baijia-live" }
+baijia-playback = { module = "com.baijia.player:VideoplayerUI", version.ref = "baijia-playback" }
+androidx-annotations = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+paging-common = { module = "app.cash.paging:paging-common", version.ref = "multiplatform-paging" }
+paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "multiplatform-paging" }
+
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "jetpack-compose-bom" }
+coroutines-bom = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-bom", version.ref = "coroutines-bom" }
+javapoet = { module = "com.squareup:kotlinpoet-ksp", version.ref = "javapoet" }
+kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlin" }
+kotlin-plugins-bom = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugins-bom", version.ref = "kotlin" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinxIoCore" }
+ksoup = { module = "com.fleeksoft.ksoup:ksoup-lite", version.ref = "ksoup" }
+ktor-bom = { module = "io.ktor:ktor-bom", version.ref = "ktor-bom" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-bom" }
+koin-compose = { module = "io.insert-koin:koin-compose" }
+koin-android = { module = "io.insert-koin:koin-android" }
+coil-bom = { module = "io.coil-kt.coil3:coil-bom", version.ref = "coil-bom" }
+coil-core = { module = "io.coil-kt.coil3:coil" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
+coil-video = { module = "io.coil-kt.coil3:coil-video" }
+coil-gif = { module = "io.coil-kt.coil3:coil-gif" }
+coil-svg = { module = "io.coil-kt.coil3:coil-svg" }
+
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil-bom" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil-bom" }
+
+compose-shadow = { module = "com.vickyleu.shadows:compose_shadow", version = "1.0.2" }
+compose-calendar = { module = "com.vickyleu.calendar:calendar", version = "1.0.2" }
+
+richtext-html = { module = "com.vickyleu.html:htmlspanner", version.ref = "richtext" }
+richtext-markdown = { module = "com.vickyleu.markdown:parser", version.ref = "richtext" }
+richtext = { module = "com.vickyleu.richtext:richtext", version.ref = "richtext" }
+
+
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+
+polyv = { module = "com.vickyleu.polyv:live", version.ref = "polyv" }
+polyv-live = { module = "com.vickyleu.polyv:polyvlivecloudclassscene", version.ref = "polyv" }
+polyv-common = { module = "com.vickyleu.polyv:polyvlivecommonmodul", version.ref = "polyv" }
+
+
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
+
+
+compose-lifecycle-runtime = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+compose-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+
+
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm" }
+
+settings-noarg = { group = "com.russhwolf", name = "multiplatform-settings-no-arg", version.ref = "settings" }
+lottie = { group = "io.github.alexzhirkevich", name = "compottie", version.ref = "lottie" }
+
+kotlin-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "serialization" }
+kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+
+ktor-http = { group = "io.ktor", name = "ktor-http" }
+ktor-client-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation" }
+ktor-client-encoding = { group = "io.ktor", name = "ktor-client-encoding" }
+ktor-client-websocket = { group = "io.ktor", name = "ktor-client-websockets" }
+ktor-client-resource = { group = "io.ktor", name = "ktor-client-resources" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp" }
+ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin" }
+
+
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core" }
+ktor-client-json = { group = "io.ktor", name = "ktor-client-json" }
+ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serialization" }
+ktor-client-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android" }
+
+junit = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
+androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-junit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-espresso-core" }
+
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
+
+compose-sonner = { module = "com.vickyleu.sonner:sonner", version.ref = "compose-sonner" }
+compose-webview = { module = "com.vickyleu.webview:webview", version.ref = "compose-webview" }
+compose-views = { module = "com.vickyleu.views:views", version.ref = "compose-views" }
+compose-imagepicker = { module = "com.vickyleu.image_picker:imagepicker", version.ref = "compose-imagepicker" }
+compose-filepicker = { module = "com.vickyleu.filepicker:filepicker", version.ref = "compose-filepicker" }
+
+
+compose-scale-viewer = { module = "com.vickyleu.scale:image-viewer", version.ref = "compose-scale" }
+compose-scale-sampling = { module = "com.vickyleu.scale:sampling-decoder", version.ref = "compose-scale" }
+compose-scale-zoomableview = { module = "com.vickyleu.scale:zoomable-view", version.ref = "compose-scale" }
+
+
+
+compose-dropdown = { module = "com.vickyleu.dropdown:dropdown", version.ref = "compose-dropdown" }
+# 二维码扫描
+compose-qrcode_scan = { module = "io.github.kalinjul.easyqrscan:scanner", version.ref = "easyqrscan" }
+
+compose-swiperefresh = { module = "com.vickyleu.swiperefresh:refresh", version.ref = "compose-swiperefresh" }
+compose-swiperefresh-classic = { module = "com.vickyleu.swiperefresh:refresh-indicator-classic", version.ref = "compose-swiperefresh" }
+compose-swiperefresh-lottie = { module = "com.vickyleu.swiperefresh:refresh-indicator-lottie", version.ref = "compose-swiperefresh" }
+compose-swiperefresh-progress = { module = "com.vickyleu.swiperefresh:refresh-indicator-progress", version.ref = "compose-swiperefresh" }
+
+compose-documentviewer = { module = "com.vickyleu.documentviewer:viewer", version.ref = "compose-documentviewer" }
+
+
+symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "compose-voyager" }
+voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "compose-voyager" }
+voyager-navigator-tab = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "compose-voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "compose-voyager" }
+voyager-navigator-bottomsheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "compose-voyager" }
+
+
+
+androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
+androidx-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "media3" }
+androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
+androidx-media3-exoplayer-hls = { module = "androidx.media3:media3-exoplayer-hls", version.ref = "media3" }
+androidx-media3-mediasession = { module = "androidx.media3:media3-session", version.ref = "media3" }
+
+
+
+sqldelight-driver-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "sqldelight" }
+sqldelight-driver-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
+sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref = "sqldelight" }
+sqldelight-extensions-coroutines = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }
+androidx-lifecycle-common-jvm = { group = "androidx.lifecycle", name = "lifecycle-common-jvm", version.ref = "lifecycleCommonJvm" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
+
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+rust = { id = "com.seiko.plugin.rust", version.ref = "rust" }
+
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+
+kotlinx-atomicfu = { id = "org.jetbrains.kotlin.plugin.atomicfu", version.ref = "kotlin" }
+
+
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ktlint = { id = "org.jmailen.kotlinter", version.ref = "ktlint-plugin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+# 下面这个是假的，只是为了占位
+jvmTargetPlaceHolder = { id = "org.jdk.kotlin.holder", version.ref = "jvmTarget" }

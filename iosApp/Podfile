@@ -1,0 +1,72 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '13.0'
+source 'https://cdn.cocoapods.org'
+source 'https://git2.baijiashilian.com/open-ios/specs.git'
+target 'iosApp' do
+# Comment the next line if you don't want to use dynamic frameworks
+# use_frameworks! #:linkage => :static
+use_frameworks!(:linkage => :static)
+
+inhibit_all_warnings!
+# Pods for iosApp
+ pod 'composeApp', :path => '../composeApp/'
+ pod 'TXLiteAVSDK_TRTC', '12.0.16292'
+ pod 'Protobuf', '3.22.4'
+ pod 'SVGAPlayer', '~> 2.3'
+ pod 'SDWebImage'
+ pod 'UMCommon'
+ pod 'UMDevice'
+ pod 'QCloudCOSXML/Transfer'
+ pod 'AFNetworking'
+ pod 'iosMath', '~> 0.9'
+ pod 'DTFoundation'
+ pod 'FinApplet'
+ pod 'Bugly'
+ pod 'PLVLiveScenesSDK', '1.19.1'
+ pod 'PLVFoundationSDK', '1.19.0'
+ pod 'BJLLog', '~> 3.7.4.6'
+ pod 'BaijiaYun/BJLiveUI', '4.18.0'
+ pod 'BaijiaYun/BJPlaybackUI', '4.18.0'
+ pod 'DTCoreText', :git => "https://github.com/vickyleu/DTCoreText.git",branch: 'develop'
+ pod 'polyv', :git => 'https://github.com/vickyleu/polyvmultiplatform.git', branch: 'main'
+ pod 'VIMediaCache', :git => 'https://github.com/vickyleu/VIMediaCache.git', branch: 'master'
+end
+
+puts "首次执行前请先确认是否已执行此命令 brew install xcode-kotlin &xcode-kotlin install"
+post_install do |installer|
+installer.pods_project.targets.each do |target|
+target.build_configurations.each do |config|
+if config.base_configuration_reference
+ config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+ config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = "13.0"
+# config.build_settings.delete 'ONLY_ACTIVE_ARCH'
+if config.name == 'Debug'
+ # Debug 环境
+ config.build_settings.delete 'ONLY_ACTIVE_ARCH'
+ config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+ elsif config.name == 'Release'
+ # Release 环境
+ config.build_settings.delete 'ONLY_ACTIVE_ARCH'
+ config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+ end
+ config.build_settings.delete 'VALID_ARCHS'
+ config.build_settings.delete "EXCLUDED_ARCHS[sdk=iphonesimulator*]"
+ config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+
+# config.build_settings['ONLY_ACTIVE_ARCH'] = "NO"
+ config.build_settings['SWIFT_VERSION'] = "5.0"
+end
+xcconfig_path = config.base_configuration_reference.real_path
+xcconfig = File.read(xcconfig_path)
+xcconfig_mod = xcconfig.gsub(/DT_TOOLCHAIN_DIR/, "TOOLCHAIN_DIR")
+File.open(xcconfig_path, "w") { |file| file << xcconfig_mod }
+
+# config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+# Disable signing for all synthetic pods KT-54314
+config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
+config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
+config.build_settings['CODE_SIGNING_IDENTITY'] = ""
+end
+end
+end

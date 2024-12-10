@@ -916,6 +916,9 @@ typedef NS_ENUM(NSInteger, BJLRoomLayout) {
 
 #pragma mark - 答题器
 
+/** 进教室之前正在进行中的答题器 */
+@property (nonatomic, readonly, nullable) BJLAnswerSheet *lastAnswerSheet;
+
 /**
  请求发布答题
  #param answerSheet 请求发布的答题内容，参数请参考`answerSheet`的属性内容

@@ -12,6 +12,7 @@
 
 #import "BJPlayerUIBase.h"
 #import "BJPUIAppearance.h"
+#import "BJPUProgressView.h"
 #import "BJPUStopPlayAlertView.h"
 #import "BJPUStopPlayModel.h"
 #import "BJPUSubTitleLabel.h"

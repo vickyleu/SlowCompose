@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        fromUsrName:(NSString *)userName
                            shouldShowSpecialEffect:(BOOL)shouldShowSpecial;
 
-#pragma mark - 旧版免费礼品互动
+#pragma mark - 旧版免费礼品互动（已废弃）
 
 /** 互动记录
  #discussion 参考 `loadReceivedGifts`

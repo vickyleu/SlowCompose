@@ -98,6 +98,14 @@ BJLErrorCode_invalidUserRole   错误权限，要求老师或助教权限
 @property (nonatomic, readonly) BJLEncoderMirrorMode currentUserVideoEncoderMirrorMode;
 
 /**
+  老师本地视频切换镜像，默认镜像，不记忆当前值，一次性行为
+ */
+- (nullable BJLError *)switchLocalViewMirror;
+
+/// 是否镜像
+- (BOOL)LocalViewMirror;
+
+/**
  老师/助教: 上台的用户中，是否存在水平镜像的用户
  */
 @property (nonatomic, readonly) BOOL hasHorizontalMirrorUser;

@@ -1,0 +1,3 @@
+language = Objective-C
+headers = BJPlayerUIBase-umbrella.h
+#linkerOpts = -framework BJPlayerUIBase

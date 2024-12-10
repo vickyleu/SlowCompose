@@ -12,6 +12,7 @@ buildscript {
 }
 
 plugins {
+    `java-library`
     `kotlin-dsl` version "5.1.0"
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.multiplatform) apply false
@@ -23,7 +24,11 @@ plugins {
     alias(libs.plugins.android.library) apply false
 }
 
-
+sourceSets {
+    main {
+        java.srcDir("src/main/kotlin")
+    }
+}
 
 configurations.all {
     resolutionStrategy {
@@ -51,6 +56,15 @@ dependencies {
     implementation("com.diffplug.spotless:spotless-lib:2.44.0")
     //noinspection UseTomlInstead
     implementation("com.diffplug.spotless:spotless-lib-extra:2.44.0")
+
+    //noinspection UseTomlInstead
+    implementation("jakarta.xml.bind:jakarta.xml.bind-api:2.3.3")
+    //noinspection UseTomlInstead
+    implementation("org.glassfish.jaxb:jaxb-runtime:2.3.3") // JAXB 的运行时
+    //noinspection UseTomlInstead
+    implementation("commons-codec:commons-codec:1.16.0")
+    // 添加 commons-lang3
+    implementation("org.apache.commons:commons-lang3:3.13.0")
 
     implementation("com.android.tools.build:gradle:${libs.versions.agp.get()}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}")

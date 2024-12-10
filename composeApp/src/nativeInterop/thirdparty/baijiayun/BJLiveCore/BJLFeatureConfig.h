@@ -222,6 +222,9 @@ typedef NS_ENUM(NSInteger, BJLVideoMirrorMode) {
 /// 合流默认模板类型
 @property (nonatomic, readonly) NSString *mixScreenDefaultTemple;
 
+/// 小班课是否禁止发送图片
+@property (nonatomic, readonly) BOOL disableSendImageChat;
+
 #pragma mark - 教室控制区功能开关
 
 /// 切换布局
@@ -450,6 +453,9 @@ typedef NS_ENUM(NSInteger, BJLVideoMirrorMode) {
 
 /// 小班课学生上麦是否增加蓝色效果
 @property (nonatomic, readonly) BOOL enableStrengThenStudentSpeak;
+
+/// 小班课聊天页面是否 隐藏用户数量
+@property (nonatomic, readonly) BOOL hiddenChatUserCount;
 
 #pragma mark - color
 

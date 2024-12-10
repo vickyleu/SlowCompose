@@ -4,7 +4,6 @@ package com.base
 
 import com.diffplug.spotless.FormatExceptionPolicyStrict
 import com.diffplug.spotless.Formatter
-import com.diffplug.spotless.FormatterProperties
 import com.diffplug.spotless.LineEnding
 import com.diffplug.spotless.generic.EndWithNewlineStep
 import com.diffplug.spotless.generic.IndentStep
@@ -75,13 +74,9 @@ class CocoapodsAppender private constructor() {
 //                ReplaceStep.create("replace", "", " "),// 替换缩进
                 TrimTrailingWhitespaceStep.create(),// 删除行尾空格
             )
-            val f = Formatter.builder()
-                .lineEndingsPolicy(LineEnding.UNIX.createPolicy())
-                .encoding(Charset.defaultCharset())
-                .rootDir(file.parentFile.toPath())
-                .steps(steps)
-                .exceptionPolicy(exceptionPolicy)
-                .build()
+            val f = Formatter.builder().lineEndingsPolicy(LineEnding.UNIX.createPolicy())
+                .encoding(Charset.defaultCharset()).rootDir(file.parentFile.toPath()).steps(steps)
+                .exceptionPolicy(exceptionPolicy).build()
             // 使用 Spotless 格式化文本
             f.applyTo(file)
         }
@@ -197,15 +192,16 @@ class CocoapodsAppender private constructor() {
               xcode-kotlin install
               ```."
             end
-                """.trimIndent()
-                    .prependIndent("    ")
+                """.trimIndent().prependIndent("    ")
             )
         }
 
         fun deploymentTarget(
             podGen: Any,
+            xcodePath: String,
             target: String? = null,
             swiftTarget: String? = null,
+            archs: List<String> = emptyList(),
             excludePods: List<String> = emptyList()
         ): Builder {
             val deploymentTarget = if (target == null) {
@@ -216,8 +212,9 @@ class CocoapodsAppender private constructor() {
                     podGen::class.declaredMemberProperties.find { it.name == "platformSettings" }?.getter?.call(
                         podGen
                     ) as? DefaultProperty<*>
-                val platformSettings = platformSettingsVar?.get()
-                    ?: throw IllegalArgumentException("PodGenTask platformSettings not found")
+                val platformSettings = platformSettingsVar?.get() ?: throw IllegalArgumentException(
+                    "PodGenTask platformSettings not found"
+                )
 
                 platformSettings::class.declaredMemberProperties.find { it.name == "deploymentTarget" }
                     ?.let { return@let it.getter.call(platformSettings) }
@@ -233,23 +230,22 @@ class CocoapodsAppender private constructor() {
             val indent = "\t\t"
             // config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
             val content = """
-               
                 xcconfig_path = config.base_configuration_reference.real_path
                 xcconfig = File.read(xcconfig_path)
                 xcconfig_mod = xcconfig.gsub(/DT_TOOLCHAIN_DIR/, "TOOLCHAIN_DIR")
                 File.open(xcconfig_path, "w") { |file| file << xcconfig_mod }
-                """.trimIndent()
-                .replaceIndent(indent)
-            return appendInWholeSyntheticPodfile(content)
-                .appendOrCreate(
-                    "if config.base_configuration_reference",
-                    """
+                """.trimIndent().replaceIndent(indent)
+            return appendInWholeSyntheticPodfile(content).appendOrCreate(
+                "if config.base_configuration_reference",
+                """
                  # @see https://stackoverflow.com/a/37289688/456536
+                 
                  config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+                 config.build_settings.delete 'DEBUG_INFORMATION_FORMAT'
                  config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
                  config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = "$deploymentTarget"
                  ${
-                        """
+                    """
                         if config.name == 'Debug'
                            # Debug 环境 
                            config.build_settings.delete 'ONLY_ACTIVE_ARCH'
@@ -260,19 +256,57 @@ class CocoapodsAppender private constructor() {
                            config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
                         end 
                         config.build_settings.delete 'VALID_ARCHS'
+                     """.trimIndent()
+                }
+                
+                """.trimIndent().prependIndent("\t"),
+                indent = indent,
+                begin = "if config.base_configuration_reference",
+                end = "end",
+                func = ::appendInWholeSyntheticPodfile
+            ).replace(
+                "installer.pods_project.targets.each do |target|", """
+                    installer.pods_project.build_configurations.each do |config|
+                        config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+                        config.build_settings.delete('SWIFT_FORCE_DYNAMIC_LINK_STDLIB')
+                        config.build_settings.delete('SWIFT_FORCE_STATIC_LINK_STDLIB')
+                        config.build_settings["SWIFT_FORCE_DYNAMIC_LINK_STDLIB"] = "YES"
+                        config.build_settings["SWIFT_FORCE_STATIC_LINK_STDLIB"] = "NO"
+                    end
+                    installer.pods_project.targets.each do |target|
+                        # 只处理 PBXNativeTarget 和 PBXAggregateTarget
+                        next unless target.is_a?(Xcodeproj::Project::Object::PBXNativeTarget) || target.is_a?(Xcodeproj::Project::Object::PBXAggregateTarget)
+                        # 判断是否是 Swift 项目
+                        is_swift_target = false
+                        if target.is_a?(Xcodeproj::Project::Object::PBXNativeTarget)
+                          is_swift_target = target.source_build_phase&.files&.any? do |file|
+                            file.file_ref.path.end_with?('.swift')
+                          end
+                        end
+                """.trimIndent()
+            ).replace("target.build_configurations.each do |config|", """
+                    target.build_configurations.each do |config|
+                        ${if (swiftTarget.isNullOrEmpty()) "" else "config.build_settings['SWIFT_VERSION'] = \"$swiftTarget\""}
+                        # 如果是 Swift 项目，设置 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES
+                        if is_swift_target
+                          puts "Target '#{target.name}' is a Swift target, setting ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES to YES."
+                          config.build_settings.delete('ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES')
+                          config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = 'YES'
+                        else
+                          puts "Target '#{target.name}' is not a Swift target"
+                          config.build_settings.delete('ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES')
+                        end
+                        ##############################
                         config.build_settings.delete "EXCLUDED_ARCHS[sdk=iphonesimulator*]"
                         # Arm64 的Mac 有很多框架没有适配,所以排除掉,只使用Rosetta模拟器运行X64
                         config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-                     """.trimIndent()
-                    }
-                 ${if (swiftTarget.isNullOrEmpty()) "" else "config.build_settings['SWIFT_VERSION'] = \"$swiftTarget\""}
-                """.trimIndent().prependIndent("\t"),
-                    indent = indent,
-                    begin = "if config.base_configuration_reference",
-                    end = "end",
-                    func = ::appendInWholeSyntheticPodfile
-                )
-
+                        # config.build_settings['LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]'] = [
+                        # "\"/Library/Developer/CoreSimulator/Volumes/iOS_21F79/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 17.5.simruntime/Contents/Resources/RuntimeRoot/usr/lib/swift\""
+                        # ]
+                        # config.build_settings['LIBRARY_SEARCH_PATHS[sdk=iphoneos*]'] = [
+                        # "\"/Users/vickyleu/Library/Developer/Xcode/iOS DeviceSupport/iPhone14,2 18.1 (22B83)/Symbols/usr/lib/swift\""
+                        # ]
+                """.trimIndent())
         }
 
         fun relinkGradle(projectDir: File, podSpecDir: File): Builder {
@@ -280,24 +314,18 @@ class CocoapodsAppender private constructor() {
                 File("${projectDir.parentFile.absolutePath}/iosApp/Pods/../../${projectDir.name}/")
             val relativeTo = originDir.relativeTo(podSpecDir).path
             return replace(
-                "REPO_ROOT=\"${"$"}PODS_TARGET_SRCROOT\"",
-                """
+                "REPO_ROOT=\"${"$"}PODS_TARGET_SRCROOT\"", """
                     REPO_ROOT="${"$"}PODS_TARGET_SRCROOT${if (relativeTo.isEmpty()) "" else "/$relativeTo"}"
                             echo "REPO_ROOT: ${'$'}REPO_ROOT"
                             echo "${
-                    "Command: ${'$'}REPO_ROOT/../gradlew -p ${'$'}REPO_ROOT ${'$'}KOTLIN_PROJECT_PATH:syncFramework " +
-                            "                    -Pkotlin.native.cocoapods.platform=${'$'}PLATFORM_NAME " +
-                            "                    -Pkotlin.native.cocoapods.archs=\\\"${'$'}ARCHS\\\"" +
-                            "                    -Pkotlin.native.cocoapods.configuration=\\\"${'$'}CONFIGURATION\\\""
+                    "Command: ${'$'}REPO_ROOT/../gradlew -p ${'$'}REPO_ROOT ${'$'}KOTLIN_PROJECT_PATH:syncFramework " + "                    -Pkotlin.native.cocoapods.platform=${'$'}PLATFORM_NAME " + "                    -Pkotlin.native.cocoapods.archs=\\\"${'$'}ARCHS\\\"" + "                    -Pkotlin.native.cocoapods.configuration=\\\"${'$'}CONFIGURATION\\\""
                 }"
                 """.trimIndent().prependIndent("\t\t\t\t")
             )
         }
 
         fun sharedPodRelink(
-            podSpecDir: File,
-            rollback: Boolean = false,
-            sharedModuleName: String = "shared"
+            podSpecDir: File, rollback: Boolean = false, sharedModuleName: String = "shared"
         ): Builder {
             var searchBy = "  pod '$sharedModuleName', :path => '../$sharedModuleName'"
             val relative = "${podSpecDir.relativeTo(this.file.parentFile).path}/".replace("//", "/")
@@ -326,8 +354,7 @@ class CocoapodsAppender private constructor() {
          */
         @Suppress("unused")
         fun rewriteSymroot(buildDir: File, projectDir: File, rollback: Boolean = false): Builder {
-            val shouldChangePodspecDir =
-                buildDir.parentFile.absolutePath != projectDir.absolutePath
+            val shouldChangePodspecDir = buildDir.parentFile.absolutePath != projectDir.absolutePath
             val isBuildDirChanged = shouldChangePodspecDir
 
             if (isBuildDirChanged) {
@@ -341,18 +368,17 @@ class CocoapodsAppender private constructor() {
                             ENV['PODS_BUILD_DIR'] = $path
                             ENV['SYMROOT'] = $path
                 """.trimIndent().prependIndent("\t")
-                        )
-                            .appendOrCreate(
-                                "if config.base_configuration_reference",
-                                """
+                        ).appendOrCreate(
+                            "if config.base_configuration_reference",
+                            """
                   	        config.build_settings['PODS_BUILD_DIR'] = $path
                   	        config.build_settings['SYMROOT'] = $path""".trimIndent()
-                                    .prependIndent("\t\t"),
-                                indent = "\t\t",
-                                begin = "if config.base_configuration_reference",
-                                end = "end",
-                                func = ::appendInWholeSyntheticPodfile
-                            )
+                                .prependIndent("\t\t"),
+                            indent = "\t\t",
+                            begin = "if config.base_configuration_reference",
+                            end = "end",
+                            func = ::appendInWholeSyntheticPodfile
+                        )
                     }
                 }
                 if (!isExist("ENV['PODS_BUILD_DIR']")) {
@@ -419,8 +445,7 @@ class CocoapodsAppender private constructor() {
                     newLines.add(end)
                 }
                 func.invoke(
-                    newLines.joinToString("\n")
-                        .prependIndent(indent)
+                    newLines.joinToString("\n").prependIndent(indent)
                 )
             }
             return this
@@ -451,19 +476,25 @@ class CocoapodsAppender private constructor() {
                     newLines.add(end)
                 }
                 func.invoke(
-                    newLines.joinToString("\n")
-                        .prependIndent(indent)
+                    newLines.joinToString("\n").prependIndent(indent)
                 )
             }
             return this
         }
 
-        fun openStaticLinkage(): Builder {
+        fun setupLinkage(static: Boolean = false): Builder {
             return replaceOrCreate(
                 "use_frameworks!",
                 """
-                 use_frameworks! #:linkage => :static
-                """.trimIndent().prependIndent("\t"), indent = "\t\t",
+                use_frameworks! ${
+                    if (static) {
+                        ":linkage => :static"
+                    } else {
+                        ":linkage => :dynamic"
+                    }
+                }
+                """.trimIndent().prependIndent("\t"),
+                indent = "\t\t",
                 func = ::appendInWholeSyntheticPodfile
             )
         }
@@ -476,20 +507,22 @@ class CocoapodsAppender private constructor() {
             if (!isExist("use_frameworks!")) {
                 return appendOrCreate(
                     "use_frameworks!",
-                    """inhibit_all_warnings!""", "",
+                    """inhibit_all_warnings!""",
+                    "",
                     func = ::appendInWholeSyntheticPodfile
                 )
             }
             return this
         }
 
-        fun excludeNonIphoneOS(excludeNonIphoneOS:Boolean): Builder {
-            if(excludeNonIphoneOS.not())return this
+        fun excludeNonIphoneOS(excludeNonIphoneOS: Boolean): Builder {
+            if (excludeNonIphoneOS.not()) return this
             if (!isExist("config.build_settings['SUPPORTED_PLATFORMS']")) {
                 return appendOrCreate(
                     "target.build_configurations.each",
                     """# 强制确保仅 iOS
-                        config.build_settings['SUPPORTED_PLATFORMS'] = 'iphonesimulator iphoneos'""".trimMargin(), "",
+                        config.build_settings['SUPPORTED_PLATFORMS'] = 'iphonesimulator iphoneos'""".trimMargin(),
+                    "",
                     func = ::appendInWholeSyntheticPodfile
                 )
             }
@@ -525,13 +558,15 @@ class CocoapodsAppender private constructor() {
 
         @Suppress("unused", "UNUSED_VARIABLE")
         fun relinkPodspec(outputFile: File): TaskBuilder {
-            @Suppress("UNUSED", "UNUSED_VARIABLE", "UNCHECKED_CAST")
-            val outputDir: Property<File>? =
+            @Suppress(
+                "UNUSED",
+                "UNUSED_VARIABLE",
+                "UNCHECKED_CAST"
+            ) val outputDir: Property<File>? =
                 task::class.declaredMemberProperties.find { it.name == "outputDir" }?.getter?.call(
                     task
                 ) as? Property<File>
-            if (isBuildDirChanged) {
-                /*var ignoreDistributionDir = false
+            if (isBuildDirChanged) {/*var ignoreDistributionDir = false
                 var oldOutputDir: File? = null
                 if (outputDir != null) {
                     val old = outputDir.get()
@@ -626,9 +661,7 @@ class CocoapodsAppender private constructor() {
 }
 
 fun calculatePodspecDirectory(
-    projectDirFile: File,
-    buildDirFile: File,
-    rootProjectDir: File
+    projectDirFile: File, buildDirFile: File, rootProjectDir: File
 ): File {
     val absoluteProjectDir = projectDirFile.absoluteFile
     val absoluteBuildDir = buildDirFile.absoluteFile

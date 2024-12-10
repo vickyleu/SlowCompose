@@ -1,5 +1,0 @@
-framework module BJLiveBase {
-  umbrella header "BJLiveBase-umbrella.h"
-
-  export *
-}

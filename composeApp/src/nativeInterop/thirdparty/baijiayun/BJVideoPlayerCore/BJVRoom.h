@@ -132,7 +132,9 @@ NS_ASSUME_NONNULL_BEGIN
  #param playerType  播放器类型：AVPlayer、IJKPlayer
  #return            回放房间实例
  */
-+ (instancetype)onlineMixPlaybackRoomWithMixID:(NSString *)mixID mixToken:(NSString *)mixToken playerType:(BJVPlayerType)playerType;
++ (instancetype)onlineMixPlaybackRoomWithMixID:(NSString *)mixID
+                                      mixToken:(NSString *)mixToken
+                                    playerType:(BJVPlayerType)playerType;
 
 /**
  创建在线回放房间

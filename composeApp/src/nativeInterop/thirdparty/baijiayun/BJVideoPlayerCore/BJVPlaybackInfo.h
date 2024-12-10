@@ -73,6 +73,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 有效期时间戳
 @property (nonatomic, readonly) NSTimeInterval invalidTime;
 
+// 默认ppt/视频操作模式
+@property (nonatomic, readonly) BOOL initialPPTMode;
+
 @end
 
 NS_ASSUME_NONNULL_END

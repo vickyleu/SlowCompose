@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import ComposeApp
 import AVFoundation
+import iosMath
 //import UoocOnlines
 //@available(iOS, deprecated: 14.0)
 @main
@@ -32,6 +33,12 @@ class AppDelegateSwift: UIResponder, UIApplicationDelegate {
         } catch let error {
             debugPrint(error.localizedDescription)
         }
+        //pragma mark - 通过更换系统方法, 处理bundle 无法读取的问题,( 非常重要,请勿删除 )
+        Bundle.swizzleBundleForClass
+        MTFont.swizzle
+        //pragma mark - 通过更换系统方法, 处理bundle 无法读取的问题,( 非常重要,请勿删除 )
+        
+        
         let viewController = MainViewControllerKt.MainViewController(delegateImpl: delegateImplKt)
         viewController.view.frame = UIScreen.main.bounds
         viewController.view.backgroundColor=UIColor.white

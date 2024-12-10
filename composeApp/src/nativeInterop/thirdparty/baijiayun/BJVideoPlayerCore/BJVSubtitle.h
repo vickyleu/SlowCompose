@@ -28,9 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *ID;
-@property (nonatomic, readonly) NSString *enurlString;
-@property (nonatomic, readonly) NSString *zhurlString;
-@property (nonatomic, readonly) NSString *urlString;
+@property (nonatomic, readonly) NSString *enurlString;// 英文字母
+@property (nonatomic, readonly) NSString *zhurlString;// 中文字幕
+@property (nonatomic, readonly) NSString *urlString;//非双语字幕的默认字幕
 @property (nonatomic, readonly) BOOL isDefaultSubtitle;
 @property (nonatomic, nullable, readonly) NSArray<BJVSubtitle *> *subtitles;
 @property (nonatomic, nullable, readonly) NSArray<BJVSubtitle *> *ensubtitles;

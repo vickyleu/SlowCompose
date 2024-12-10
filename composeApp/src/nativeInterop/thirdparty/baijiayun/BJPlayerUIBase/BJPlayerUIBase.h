@@ -16,6 +16,7 @@
 #import "BJPUStopPlayModel.h"
 #import "BJPUSubtitleView.h"
 #import "BJPUSubTitleLabel.h"
+#import "BJPUProgressView.h"
 
 FOUNDATION_EXPORT NSString *BJPlayerUIBaseName(void);
 FOUNDATION_EXPORT NSString *BJPlayerUIBaseVersion(void);

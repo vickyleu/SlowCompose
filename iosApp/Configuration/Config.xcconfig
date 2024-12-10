@@ -1,7 +1,7 @@
 APP_NAME=优课UOOC
 BUNDLE_ID=com.UOOC.UoocOnline
-CFBundleShortVersionString=2.1.9
-CFBundleVersion=75
+CFBundleShortVersionString=2.2.0
+CFBundleVersion=76
 CG_PDF_VERBOSE=1
 OBJROOT=../../buildOut/SlowCompose/subprojects/composeApp/cocoapods/iosApp
 PODS_BUILD_DIR=../../buildOut/SlowCompose/subprojects/composeApp/cocoapods/iosApp

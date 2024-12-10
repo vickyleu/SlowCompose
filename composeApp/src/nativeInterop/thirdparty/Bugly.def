@@ -1,2 +1,3 @@
 language = Objective-C
 headers = Bugly.h BuglyConfig.h BuglyLog.h
+#linkerOpts = -framework Bugly

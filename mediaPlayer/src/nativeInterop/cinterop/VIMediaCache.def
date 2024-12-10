@@ -1,2 +1,3 @@
 language = Objective-C
-headers = VIMediaCache.h
+headers = VIMediaCache.h VIResourceLoaderManager.h VICacheManager.h \
+          VIMediaDownloader.h VIContentInfo.h

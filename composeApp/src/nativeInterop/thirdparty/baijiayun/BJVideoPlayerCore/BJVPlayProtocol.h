@@ -154,6 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 当前播放清晰度 */
 @property (nonatomic, readonly, nullable) BJVDefinitionInfo *currDefinitionInfo;
 
+/** 当前播放CDN下标 */
 @property (nonatomic, readonly) NSUInteger currentCDNIndex;
 
 /** 当前使用的字幕信息 */

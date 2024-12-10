@@ -151,6 +151,7 @@ typedef NS_ENUM(NSInteger, BJLSellGoodShelfState) {
 /** 更新推荐卡片通知 */
 - (BJLObservable)didReceiveRecommendCard:(nullable NSString *)cardID;
 
+/** 收到更新推荐卡片通知之后，请求具体卡片信息 */
 - (nullable NSURLSessionDataTask *)requestRecommendCardInfoWithID:(NSString *)cardID
                                                         complete:(nullable void (^)(NSArray<BJLRecommendItem *> *_Nullable list, BJLError *_Nullable error))completion;
 
@@ -170,8 +171,10 @@ typedef NS_ENUM(NSInteger, BJLSellGoodShelfState) {
 
 #pragma mark - 活动飘窗
 
+/** 收到结束活动飘窗通知 */
 - (BJLObservable)didReceiveStopActivity;
 
+/** 收到新的活动飘窗通知 */
 - (BJLObservable)didReceiveActivityInfoChangeWithUserName:(nullable NSString *)username
                                                 goodsName:(nullable NSString *)goodsName
                                             activityModel:(BJLSellActivityModel *)model;

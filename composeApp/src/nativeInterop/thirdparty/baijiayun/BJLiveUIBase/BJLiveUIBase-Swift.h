@@ -414,6 +414,26 @@ typedef SWIFT_ENUM(NSInteger, BJLSellTopMenuViewType, open) {
   BJLSellTopMenuViewTypeLargeClass = 1,
 };
 
+
+SWIFT_CLASS("_TtC12BJLiveUIBase36BJLStudentAnswerWindowViewController")
+@interface BJLStudentAnswerWindowViewController : BJLViewController
+@property (nonatomic, copy) void (^ _Nullable closeCallback)(void);
+@property (nonatomic, copy) void (^ _Nullable errorCallback)(NSString * _Nonnull);
+@property (nonatomic, copy) BOOL (^ _Nullable submitCallback)(BJLAnswerSheet * _Nonnull);
+- (nonnull instancetype)initWithRoom:(BJLRoom * _Nonnull)room answerSheet:(BJLAnswerSheet * _Nonnull)answerSheet OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+- (void)viewDidLoad;
+- (void)closeByForce;
+- (CGSize)presentationSizeWithIsFullScreenInEE:(BOOL)isFullScreenInEE SWIFT_WARN_UNUSED_RESULT;
+- (NSInteger)answerSheetOptionsCount SWIFT_WARN_UNUSED_RESULT;
+- (void)relayoutSubViewWithIsFullScreenInEE:(BOOL)isFullScreenInEE;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+
 typedef SWIFT_ENUM(NSInteger, BJLToolboxLayoutPosition, open) {
   BJLToolboxLayoutPositionTopCenter = 0,
   BJLToolboxLayoutPositionBottomCenter = 1,

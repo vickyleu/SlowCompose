@@ -1,2 +1,3 @@
 language = Objective-C
-headers = TencentMeetingSDK.h
+headers = TencentMeetingSDK.h TMPreMeetingService.h
+#linkerOpts = -framework TencentMeetingSDK

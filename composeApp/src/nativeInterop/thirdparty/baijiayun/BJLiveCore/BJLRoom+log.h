@@ -6,7 +6,7 @@
 //  Copyright © 2023 BaijiaYun. All rights reserved.
 //
 
-#import "BJLiveCore.h"
+#import "../BJLiveCore/BJLiveCore.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

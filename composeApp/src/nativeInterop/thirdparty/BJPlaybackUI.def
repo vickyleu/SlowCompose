@@ -1,2 +1,3 @@
 language = Objective-C
 headers = BJPlaybackUI-umbrella.h
+#linkerOpts = -framework BJPlaybackUI

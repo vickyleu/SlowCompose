@@ -5,11 +5,6 @@
 
 rootProject.name = "SlowCompose"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-// WorkQueue error throw in Iguana
-//gradle.startParameter.excludedTaskNames.addAll(listOf(
-//    ":buildSrc:testClasses",
-//    ":rust_plugin:testClasses",
-//))
 
 pluginManagement {
     repositories.apply {
@@ -229,13 +224,9 @@ dependencyResolutionManagement {
 
 include(
     ":composeApp",
-//    ":rust",
-//    ":processor",
-//    ":annotation"
+    ":rust",
+    ":processor",
+    ":annotation"
 )
 
-//include(":mediaPlayer")
-
-
-// 用来单独更新依赖的module
-//include(":dependencies")
+include(":mediaPlayer")

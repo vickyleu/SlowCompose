@@ -82,6 +82,18 @@ typedef NS_ENUM(NSUInteger, BJLRoomVCType) {
 /** 支持更丰富自定义跑马灯，优先级最高，老师角色不展示，助教角色受配置项控制 */
 @property (nonatomic, copy, nullable) BJLLamp *customLamp;
 
+/** 外部控制截屏，仅对大班课有效，设置为disable时，screenRecordingType也变化为disable */
+@property (nonatomic, assign) BJLRoomAPIControlType screenShotType;
+
+/** 外部控制录屏，仅对大班课有效, screenShotType 设置为禁止时，screenRecordingType 不可设置为允许 */
+@property (nonatomic, assign) BJLRoomAPIControlType screenRecordingType;
+
+/** 是否显示用户数量，仅对大班课有效 */
+@property (nonatomic, assign) BJLRoomAPIControlType showOnlineUserNumber;
+
+/** 是否显示用户列表，仅对大班课有效 */
+@property (nonatomic, assign) BJLRoomAPIControlType showOnlineUserList;
+
 /** 设置自定义水印信息 */
 - (void)setCustomWaterMark:(BJLWaterMarkModel *)customWaterMark;
 

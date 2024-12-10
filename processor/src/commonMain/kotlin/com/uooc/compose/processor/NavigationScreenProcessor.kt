@@ -200,6 +200,7 @@ class NavigationScreenProcessor(environment: SymbolProcessorEnvironment) : Symbo
                 }
             }
         }
+
         val fileStream =
             codeGenerator.createNewFile(
                 dependencies = Dependencies(

@@ -1,2 +1,3 @@
 language = Objective-C
 headers = BJLiveUIBase-umbrella.h
+#linkerOpts = -framework BJLiveUIBase -framework BJSwiftBase

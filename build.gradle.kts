@@ -95,8 +95,16 @@ subprojects {
         }
     }
     configurations.all {
+        val listForceRefreshDependencies: List<String> = listOf(
+//            "com.vickyleu.image_picker"
+        )
         resolutionStrategy {
             eachDependency { // # 移除掉版本不相同的依赖,保留项目中使用的版本,加快下载速度,也避免乱七八糟的问题
+                if(listForceRefreshDependencies.contains(requested.group)){
+                    cacheDynamicVersionsFor(0, TimeUnit.SECONDS)
+                    // cacheChangingModulesFor的作用是缓存变化的模块，避免每次构建都去下载
+                    cacheChangingModulesFor(0, TimeUnit.SECONDS)
+                }
                 if (requested.group.startsWith("io.ktor")) {
                     useVersion(libs.versions.ktor.bom.get())
                 } else if (requested.group.startsWith("androidx.exifinterface")) {
@@ -125,7 +133,9 @@ subprojects {
                 }
             }
             this.disableDependencyVerification()
+            // cacheDynamic0VersionsFor的作用是缓存动态版本，避免每次构建都去下载
             cacheDynamicVersionsFor(0, TimeUnit.SECONDS)
+            // cacheChangingModulesFor的作用是缓存变化的模块，避免每次构建都去下载
             cacheChangingModulesFor(0, TimeUnit.SECONDS)
         }
     }

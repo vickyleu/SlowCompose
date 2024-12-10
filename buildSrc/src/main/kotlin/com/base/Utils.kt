@@ -4,8 +4,10 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.w3c.dom.Element
 import org.xml.sax.InputSource
+import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
+import java.io.InputStreamReader
 import java.io.StringReader
 import java.nio.file.Paths
 import java.time.LocalDateTime
@@ -71,9 +73,11 @@ fun LocalDateTime.format(pattern: String): String {
 //    return platform
 //}
 
-@Suppress("unused","UNUSED_VARIABLE")
+@Suppress("unused", "UNUSED_VARIABLE")
 fun Task.updatePodspecFile(
     /*project: Project,*/ rootDir: File, outputFile: File,
+    xcodePath: String = "/Applications/Xcode.app/Contents/Developer",
+    archs: List<String> = emptyList(),
     forceUseSpecialDevice: Boolean = false,
     configProperties: Properties, iosDeploymentTarget: String, count: Int = 0
 ) {
@@ -122,8 +126,12 @@ fun Task.updatePodspecFile(
                 // 当前framework路径路径不是项目的子路径
                 if (!frameworkPathNormalized.exists()) {
                     updatePodspecFile(
-                        /*project,*/ rootDir, outputFile, forceUseSpecialDevice, configProperties,
-                        iosDeploymentTarget, count = count + 1
+                        /*project,*/ rootDir, outputFile,
+                        xcodePath = xcodePath,
+                        archs = archs,
+                        forceUseSpecialDevice, configProperties,
+                        iosDeploymentTarget,
+                        count = count + 1
                     )
                     if (!File(frameworkPathNormalized.absolutePathString()).exists()) {
                         if (count > 50) {
@@ -225,7 +233,10 @@ fun Task.updatePodspecFile(
                         projectDir,
                         rollback = !taskBuilder.isBuildDirChanged
                     )*/.deploymentTarget(
-                    this, target = iosDeploymentTarget, swiftTarget = "5.0"
+                    this, xcodePath = xcodePath,
+                    target = iosDeploymentTarget,
+                    archs = archs,
+                    swiftTarget = "5.0"
                 ).inhibitAllWarnings().sharedPodRelink(
                     taskBuilder.podSpecDir,
                     !taskBuilder.isBuildDirChanged,
@@ -486,7 +497,16 @@ fun Project.xcodeCheck(
     processPlistFiles(project.projectDir.parentFile)
 }
 
+fun getXcodeSelectPath(): String {
+    val process = ProcessBuilder("xcode-select", "-p").start()
+    val reader = BufferedReader(InputStreamReader(process.inputStream))
+    return reader.readLine()
+}
 
+/**
+ * TODO synthetic Pod 默认是Release 模式, 编译慢的要死, 改成Debug, 去除dsym,修改写死的最低target 版本, 缩短编译时间.
+ * TODO 😡😡😡😡🔥🔥🔥🔥🔥🔥但是第一次编译还是会很慢, 目前想不到解决办法
+ */
 fun Task.syntheticXCodeprojsTarget(buildDir: File, iosDeploymentTarget: String) {
     doFirst {
         val xcodeprojFiles = listOf(
@@ -500,17 +520,56 @@ fun Task.syntheticXCodeprojsTarget(buildDir: File, iosDeploymentTarget: String) 
         xcodeprojFiles.forEach { xcodeproj ->
             val file = outside.resolve(xcodeproj).resolve("project.pbxproj")
             if (file.exists()) {
+                var origin = file.readText(charset = Charsets.UTF_8)
+                /*origin= origin.replace("// !\$*UTF8*\$!\n","")
+
+                val parser = JAXBPlistParser()
+                val plist = parser.load(InputSource(StringReader(origin)))
+                val projectFile = ProjectFile(plist)
+                val project = projectFile.project
+                project.buildConfigurationList.buildConfigurations.forEach {
+                   println("name:${'$'}{it?.name}")
+                }
+                println("project.buildConfigurationList:${'$'}{project.buildConfigurationList}")*/
                 // project.pbxproj文件内容
-                val origin = file.readText(charset = Charsets.UTF_8)
+
                 // 使用 正则表达式替换
-                val replace = origin.replace(
+
+                val replace = origin.let {
+                    if(file.absolutePath.endsWith("Pods/Pods.xcodeproj/project.pbxproj")){
+                        return@let it
+
+                    }
+                        val file1 = outside.resolve("File.swift")
+                        val file2 = outside.resolve("ios-Bridging-Header.h")
+                        file1.createNewFile()
+                        file2.createNewFile()
+                        file1.writeText("""
+                                //
+                                //  File.swift
+                                //  ios
+                                //
+                                //  Created by vicky Leu on 2024/11/30.
+                                //
+                                import Foundation
+
+                            """.trimIndent())
+                        file2.writeText("""
+                                //
+                                //  Use this file to import your target's public headers that you would like to expose to Swift.
+                                //
+
+                            """.trimIndent())
+                    TextExport.content
+                }.replace(
                     Regex("IPHONEOS_DEPLOYMENT_TARGET = [\\d.]+;"),
                     "IPHONEOS_DEPLOYMENT_TARGET = $platform;"
                 )
-                /*.replace(
-                    "ONLY_ACTIVE_ARCH = YES;",
-                    "ONLY_ACTIVE_ARCH = NO;"
-                )*/
+                    // 替换符号输出不带dsym,减少打包时间
+                    .replace(
+                        "DEBUG_INFORMATION_FORMAT = \"dwarf-with-dsym\";",
+                        "DEBUG_INFORMATION_FORMAT = dwarf;"
+                    )
                 if (origin != replace) {
                     file.writeText(replace)
                 }
@@ -762,12 +821,98 @@ FOUNDATION_EXPORT const unsigned char ${podspecName}VersionString[];
     )
 }
 
-fun Task.syntheticPodfileGen(podfile: File,excludePods:List<String>,excludeNonIphoneOS:Boolean=false) {
+fun findTopLevelParentDirectories(
+    root: File,
+    exclude: File? = null,
+    staticLib: Boolean = false,
+    platform: String? = null
+): Set<Pair<File, String>> {
+    val result = mutableSetOf<Pair<File, String>>()
+
+    root.walkTopDown()
+        .filter {
+            if (staticLib) {
+                return@filter it.isDirectory.not() && (it.name.endsWith(".a") || it.name.endsWith(".dylib"))
+            } else {
+                if (it.isDirectory) {
+                    if (it.name.endsWith(".framework")) {
+                        if (it.parentFile.name.endsWith(".xcframework")) {
+                            if (platform != null) {
+                                when (platform) {
+                                    "iphonesimulator" -> it.parentFile.name.endsWith("-simulator")
+                                    "iphoneos" -> it.parentFile.name.endsWith("-simulator").not()
+                                    else -> false
+                                }
+                            } else {
+                                true
+                            }
+                        } else {
+                            true
+                        }
+                    } else {
+                        false
+                    }
+                } else {
+                    false
+                }
+            }
+        }
+        .map {
+            it.parentFile to it.nameWithoutExtension.let {
+                if (it.startsWith("lib")) it.substring(3)
+                else
+                    it
+            }
+        } // 获取每个 .framework 的父目录
+        .filter { (file, name) ->
+            // 过滤掉 exclude 目录及其子目录
+            exclude == null || !file.canonicalPath.startsWith(exclude.canonicalPath)
+        }
+        .toCollection(result) // 去重并存入结果集合
+    val resultFilter = result.distinctBy { it.first.absolutePath }.toSet()
+    return resultFilter
+}
+
+fun findTopLevelParentDirectories(
+    roots: List<Triple<Boolean, File, File?>>,
+    platform: String? = null
+): Set<Pair<Boolean, Pair<File, String>>> {
+    val result = mutableSetOf<Pair<Boolean, Pair<File, String>>>()
+    roots.map {
+        val static = it.first
+        findTopLevelParentDirectories(
+            root = it.second,
+            exclude = it.third,
+            staticLib = it.first,
+            platform = platform
+        ).toList().map {
+            Pair(static, it)
+        }
+    }.flatten().apply {
+        result.addAll(this)
+    }
+    return result
+}
+
+
+fun Task.syntheticPodfileGen(
+    podfile: File,
+    xcodePath: String = "/Applications/Xcode.app/Contents/Developer",
+    excludePods: List<String>,
+    archs: List<String> = emptyList(),
+    excludeNonIphoneOS: Boolean = false
+) {
     doLast {
         val builder = CocoapodsAppender.Builder(podfile)
         // modify dependencies deployment target
-        builder.deploymentTarget(this, swiftTarget = "5.0", excludePods = excludePods)
-            .openStaticLinkage()
+        builder.deploymentTarget(
+            this,
+            xcodePath = xcodePath,
+            swiftTarget = "5.0",
+            archs = archs,
+            excludePods = excludePods
+        )
+            .setupLinkage(static = true)
             .inhibitAllWarnings()
             .excludeNonIphoneOS(excludeNonIphoneOS)
             .build()
@@ -890,7 +1035,7 @@ fun specGenerator(
           # 依赖系统Frameworks
           s.ios.frameworks = 'Foundation', 'UIKit', 'CoreFoundation', 'CoreTelephony', 'QuartzCore', 'CoreData'
           # 依赖系统动态.tdb
-          s.libraries = 'sqlite3' # ,'z',  'c++'
+          s.libraries = 'z', 'sqlite3', 'c++'
           s.swift_version = '5.0'
           # 依赖
           ${

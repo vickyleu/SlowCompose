@@ -10,41 +10,7 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
-		2F43F4762C74B17A003233AD /* crash_guard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DA2C748609001F6E32 /* crash_guard.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4772C74B17A003233AD /* crash_guard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DA2C748609001F6E32 /* crash_guard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4782C74B17A003233AD /* ImSDK_Meeting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DB2C748609001F6E32 /* ImSDK_Meeting.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4792C74B17A003233AD /* ImSDK_Meeting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DB2C748609001F6E32 /* ImSDK_Meeting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F47B2C74B17A003233AD /* Skia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DF2C748609001F6E32 /* Skia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F47C2C74B17A003233AD /* TencentMeetingSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7D82C748609001F6E32 /* TencentMeetingSDK.framework */; };
-		2F43F47D2C74B17A003233AD /* TencentMeetingSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7D82C748609001F6E32 /* TencentMeetingSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F47E2C74B17A003233AD /* TencentSM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7D92C748609001F6E32 /* TencentSM.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F47F2C74B17A003233AD /* TencentSM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7D92C748609001F6E32 /* TencentSM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4802C74B17A003233AD /* Tquic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DC2C748609001F6E32 /* Tquic.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4812C74B17A003233AD /* Tquic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DC2C748609001F6E32 /* Tquic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4822C74B17A003233AD /* wemeet_app_components.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E42C748609001F6E32 /* wemeet_app_components.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4832C74B17A003233AD /* wemeet_app_components.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E42C748609001F6E32 /* wemeet_app_components.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4842C74B17A003233AD /* wemeet_app_sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E02C748609001F6E32 /* wemeet_app_sdk.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4852C74B17A003233AD /* wemeet_app_sdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E02C748609001F6E32 /* wemeet_app_sdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4862C74B17A003233AD /* wemeet_base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DE2C748609001F6E32 /* wemeet_base.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4872C74B17A003233AD /* wemeet_base.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DE2C748609001F6E32 /* wemeet_base.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4882C74B17A003233AD /* wemeet_framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E52C748609001F6E32 /* wemeet_framework.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4892C74B17A003233AD /* wemeet_framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E52C748609001F6E32 /* wemeet_framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F48A2C74B17A003233AD /* wemeet_module_api.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E82C748609001F6E32 /* wemeet_module_api.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F48B2C74B17A003233AD /* wemeet_module_api.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E82C748609001F6E32 /* wemeet_module_api.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F48C2C74B17A003233AD /* wemeet_platform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DD2C748609001F6E32 /* wemeet_platform.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F48D2C74B17A003233AD /* wemeet_platform.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7DD2C748609001F6E32 /* wemeet_platform.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F48E2C74B17A003233AD /* WeMeet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E32C748609001F6E32 /* WeMeet.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F48F2C74B17A003233AD /* WeMeet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E32C748609001F6E32 /* WeMeet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4902C74B17A003233AD /* WeMeetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E12C748609001F6E32 /* WeMeetKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4912C74B17A003233AD /* WeMeetKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E12C748609001F6E32 /* WeMeetKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4922C74B17A003233AD /* WMWhiteboardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E22C748609001F6E32 /* WMWhiteboardSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4932C74B17A003233AD /* WMWhiteboardSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E22C748609001F6E32 /* WMWhiteboardSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4942C74B17A003233AD /* xcast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7D72C748609001F6E32 /* xcast.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4952C74B17A003233AD /* xcast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7D72C748609001F6E32 /* xcast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4962C74B17A003233AD /* xnn_media.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E62C748609001F6E32 /* xnn_media.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4972C74B17A003233AD /* xnn_media.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E62C748609001F6E32 /* xnn_media.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F43F4982C74B17A003233AD /* xnn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E72C748609001F6E32 /* xnn.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		2F43F4992C74B17A003233AD /* xnn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FBFC7E72C748609001F6E32 /* xnn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2F7C10202D070767009A4A64 /* BundleSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7C101F2D070767009A4A64 /* BundleSwizzle.swift */; };
 		2FC3A8082B845B89007A4D0B /* AppDelegateSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC3A8072B845B89007A4D0B /* AppDelegateSwift.swift */; };
 		2FD262A12C6CD8C7000C0D26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD262A02C6CD8C7000C0D26 /* SystemConfiguration.framework */; };
 		2FD262A32C6CDD0C000C0D26 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD262A22C6CDD0C000C0D26 /* Security.framework */; };
@@ -52,37 +18,73 @@
 		2FD262A72C6CDD57000C0D26 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD262A62C6CDD4E000C0D26 /* libc++.tbd */; };
 		2FD262AD2C6CE2E6000C0D26 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD262AC2C6CE2E6000C0D26 /* Accelerate.framework */; };
 		2FD594892C941CE30049900F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD594882C941CE30049900F /* Launch Screen.storyboard */; };
+		2FE319F02CFA1C2100C6355E /* Skia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137E82CF9EE2200748720 /* Skia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		2FE319F12CFA1C2100C6355E /* Skia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137E82CF9EE2200748720 /* Skia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2FE3395F2C859B2C00E04B34 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE3395E2C859B2C00E04B34 /* CoreFoundation.framework */; };
 		2FE339612C859B3800E04B34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE339602C859B3800E04B34 /* Foundation.framework */; };
+		2FF1380B2CF9EF3800748720 /* crash_guard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137E62CF9EE2200748720 /* crash_guard.framework */; };
+		2FF1380C2CF9EF3800748720 /* crash_guard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137E62CF9EE2200748720 /* crash_guard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF1380D2CF9EF3800748720 /* ImSDK_Meeting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137E72CF9EE2200748720 /* ImSDK_Meeting.framework */; };
+		2FF1380E2CF9EF3800748720 /* ImSDK_Meeting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137E72CF9EE2200748720 /* ImSDK_Meeting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138112CF9EF3800748720 /* TencentMeetingSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137E92CF9EE2200748720 /* TencentMeetingSDK.framework */; };
+		2FF138122CF9EF3800748720 /* TencentMeetingSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137E92CF9EE2200748720 /* TencentMeetingSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138132CF9EF3800748720 /* TencentSM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EA2CF9EE2200748720 /* TencentSM.framework */; };
+		2FF138142CF9EF3800748720 /* TencentSM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EA2CF9EE2200748720 /* TencentSM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138152CF9EF3800748720 /* Tquic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EB2CF9EE2200748720 /* Tquic.framework */; };
+		2FF138162CF9EF3800748720 /* Tquic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EB2CF9EE2200748720 /* Tquic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138172CF9EF3800748720 /* wemeet_app_components.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EC2CF9EE2200748720 /* wemeet_app_components.framework */; };
+		2FF138182CF9EF3800748720 /* wemeet_app_components.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EC2CF9EE2200748720 /* wemeet_app_components.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138192CF9EF3800748720 /* wemeet_app_sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137ED2CF9EE2200748720 /* wemeet_app_sdk.framework */; };
+		2FF1381A2CF9EF3800748720 /* wemeet_app_sdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137ED2CF9EE2200748720 /* wemeet_app_sdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF1381B2CF9EF3800748720 /* wemeet_base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EE2CF9EE2200748720 /* wemeet_base.framework */; };
+		2FF1381C2CF9EF3800748720 /* wemeet_base.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EE2CF9EE2200748720 /* wemeet_base.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF1381D2CF9EF3800748720 /* wemeet_framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EF2CF9EE2200748720 /* wemeet_framework.framework */; };
+		2FF1381E2CF9EF3800748720 /* wemeet_framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137EF2CF9EE2200748720 /* wemeet_framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF1381F2CF9EF3800748720 /* wemeet_module_api.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F02CF9EE2200748720 /* wemeet_module_api.framework */; };
+		2FF138202CF9EF3800748720 /* wemeet_module_api.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F02CF9EE2200748720 /* wemeet_module_api.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138212CF9EF3800748720 /* wemeet_platform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F12CF9EE2200748720 /* wemeet_platform.framework */; };
+		2FF138222CF9EF3800748720 /* wemeet_platform.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F12CF9EE2200748720 /* wemeet_platform.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138232CF9EF3800748720 /* WeMeet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F22CF9EE2200748720 /* WeMeet.framework */; };
+		2FF138242CF9EF3900748720 /* WeMeet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F22CF9EE2200748720 /* WeMeet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138252CF9EF3900748720 /* WeMeetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F32CF9EE2200748720 /* WeMeetKit.framework */; };
+		2FF138262CF9EF3900748720 /* WeMeetKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F32CF9EE2200748720 /* WeMeetKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138272CF9EF3900748720 /* WMWhiteboardSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F42CF9EE2200748720 /* WMWhiteboardSDK.framework */; };
+		2FF138282CF9EF3900748720 /* WMWhiteboardSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F42CF9EE2200748720 /* WMWhiteboardSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF138292CF9EF3900748720 /* xcast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F52CF9EE2200748720 /* xcast.framework */; };
+		2FF1382A2CF9EF3900748720 /* xcast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F52CF9EE2200748720 /* xcast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF1382B2CF9EF3900748720 /* xnn_media.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F62CF9EE2200748720 /* xnn_media.framework */; };
+		2FF1382C2CF9EF3900748720 /* xnn_media.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F62CF9EE2200748720 /* xnn_media.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FF1382D2CF9EF3900748720 /* xnn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F72CF9EE2200748720 /* xnn.framework */; };
+		2FF1382E2CF9EF3900748720 /* xnn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF137F72CF9EE2200748720 /* xnn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6DA43DB552CD472242AB822D /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2745E519DF8C2F02E161A2F /* Pods_iosApp.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2F43F49A2C74B17A003233AD /* Embed Frameworks */ = {
+		2FF1382F2CF9EF3900748720 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2F43F48B2C74B17A003233AD /* wemeet_module_api.framework in Embed Frameworks */,
-				2F43F4772C74B17A003233AD /* crash_guard.framework in Embed Frameworks */,
-				2F43F4812C74B17A003233AD /* Tquic.framework in Embed Frameworks */,
-				2F43F48F2C74B17A003233AD /* WeMeet.framework in Embed Frameworks */,
-				2F43F4872C74B17A003233AD /* wemeet_base.framework in Embed Frameworks */,
-				2F43F48D2C74B17A003233AD /* wemeet_platform.framework in Embed Frameworks */,
-				2F43F47B2C74B17A003233AD /* Skia.framework in Embed Frameworks */,
-				2F43F4992C74B17A003233AD /* xnn.framework in Embed Frameworks */,
-				2F43F4792C74B17A003233AD /* ImSDK_Meeting.framework in Embed Frameworks */,
-				2F43F4852C74B17A003233AD /* wemeet_app_sdk.framework in Embed Frameworks */,
-				2F43F47F2C74B17A003233AD /* TencentSM.framework in Embed Frameworks */,
-				2F43F4972C74B17A003233AD /* xnn_media.framework in Embed Frameworks */,
-				2F43F4832C74B17A003233AD /* wemeet_app_components.framework in Embed Frameworks */,
-				2F43F4892C74B17A003233AD /* wemeet_framework.framework in Embed Frameworks */,
-				2F43F4912C74B17A003233AD /* WeMeetKit.framework in Embed Frameworks */,
-				2F43F4932C74B17A003233AD /* WMWhiteboardSDK.framework in Embed Frameworks */,
-				2F43F4952C74B17A003233AD /* xcast.framework in Embed Frameworks */,
-				2F43F47D2C74B17A003233AD /* TencentMeetingSDK.framework in Embed Frameworks */,
+				2FF138202CF9EF3800748720 /* wemeet_module_api.framework in Embed Frameworks */,
+				2FF1380C2CF9EF3800748720 /* crash_guard.framework in Embed Frameworks */,
+				2FF138162CF9EF3800748720 /* Tquic.framework in Embed Frameworks */,
+				2FF138242CF9EF3900748720 /* WeMeet.framework in Embed Frameworks */,
+				2FF1381C2CF9EF3800748720 /* wemeet_base.framework in Embed Frameworks */,
+				2FF138222CF9EF3800748720 /* wemeet_platform.framework in Embed Frameworks */,
+				2FF1382E2CF9EF3900748720 /* xnn.framework in Embed Frameworks */,
+				2FF1380E2CF9EF3800748720 /* ImSDK_Meeting.framework in Embed Frameworks */,
+				2FF1381A2CF9EF3800748720 /* wemeet_app_sdk.framework in Embed Frameworks */,
+				2FF138142CF9EF3800748720 /* TencentSM.framework in Embed Frameworks */,
+				2FE319F12CFA1C2100C6355E /* Skia.framework in Embed Frameworks */,
+				2FF1382C2CF9EF3900748720 /* xnn_media.framework in Embed Frameworks */,
+				2FF138182CF9EF3800748720 /* wemeet_app_components.framework in Embed Frameworks */,
+				2FF1381E2CF9EF3800748720 /* wemeet_framework.framework in Embed Frameworks */,
+				2FF138262CF9EF3900748720 /* WeMeetKit.framework in Embed Frameworks */,
+				2FF138282CF9EF3900748720 /* WMWhiteboardSDK.framework in Embed Frameworks */,
+				2FF1382A2CF9EF3900748720 /* xcast.framework in Embed Frameworks */,
+				2FF138122CF9EF3800748720 /* TencentMeetingSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +95,7 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
+		2F7C101F2D070767009A4A64 /* BundleSwizzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleSwizzle.swift; sourceTree = "<group>"; };
 		2FBFC7D72C748609001F6E32 /* xcast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = xcast.framework; path = ../composeApp/src/nativeInterop/thirdparty/TencentMeetingSDK/xcast.framework; sourceTree = "<group>"; };
 		2FBFC7D82C748609001F6E32 /* TencentMeetingSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentMeetingSDK.framework; path = ../composeApp/src/nativeInterop/thirdparty/TencentMeetingSDK/TencentMeetingSDK.framework; sourceTree = "<group>"; };
 		2FBFC7D92C748609001F6E32 /* TencentSM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentSM.framework; path = ../composeApp/src/nativeInterop/thirdparty/TencentMeetingSDK/TencentSM.framework; sourceTree = "<group>"; };
@@ -145,6 +148,24 @@
 		2FE3395C2C859A1100E04B34 /* DTCoreText.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DTCoreText.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FE3395E2C859B2C00E04B34 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		2FE339602C859B3800E04B34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2FF137E62CF9EE2200748720 /* crash_guard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = crash_guard.framework; sourceTree = "<group>"; };
+		2FF137E72CF9EE2200748720 /* ImSDK_Meeting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ImSDK_Meeting.framework; sourceTree = "<group>"; };
+		2FF137E82CF9EE2200748720 /* Skia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Skia.framework; sourceTree = "<group>"; };
+		2FF137E92CF9EE2200748720 /* TencentMeetingSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentMeetingSDK.framework; sourceTree = "<group>"; };
+		2FF137EA2CF9EE2200748720 /* TencentSM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentSM.framework; sourceTree = "<group>"; };
+		2FF137EB2CF9EE2200748720 /* Tquic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Tquic.framework; sourceTree = "<group>"; };
+		2FF137EC2CF9EE2200748720 /* wemeet_app_components.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wemeet_app_components.framework; sourceTree = "<group>"; };
+		2FF137ED2CF9EE2200748720 /* wemeet_app_sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wemeet_app_sdk.framework; sourceTree = "<group>"; };
+		2FF137EE2CF9EE2200748720 /* wemeet_base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wemeet_base.framework; sourceTree = "<group>"; };
+		2FF137EF2CF9EE2200748720 /* wemeet_framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wemeet_framework.framework; sourceTree = "<group>"; };
+		2FF137F02CF9EE2200748720 /* wemeet_module_api.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wemeet_module_api.framework; sourceTree = "<group>"; };
+		2FF137F12CF9EE2200748720 /* wemeet_platform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wemeet_platform.framework; sourceTree = "<group>"; };
+		2FF137F22CF9EE2200748720 /* WeMeet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WeMeet.framework; sourceTree = "<group>"; };
+		2FF137F32CF9EE2200748720 /* WeMeetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WeMeetKit.framework; sourceTree = "<group>"; };
+		2FF137F42CF9EE2200748720 /* WMWhiteboardSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WMWhiteboardSDK.framework; sourceTree = "<group>"; };
+		2FF137F52CF9EE2200748720 /* xcast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = xcast.framework; sourceTree = "<group>"; };
+		2FF137F62CF9EE2200748720 /* xnn_media.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = xnn_media.framework; sourceTree = "<group>"; };
+		2FF137F72CF9EE2200748720 /* xnn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = xnn.framework; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* 优课UOOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "优课UOOC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -159,31 +180,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FE319F02CFA1C2100C6355E /* Skia.framework in Frameworks */,
+				2FF138132CF9EF3800748720 /* TencentSM.framework in Frameworks */,
 				2FE339612C859B3800E04B34 /* Foundation.framework in Frameworks */,
 				2FE3395F2C859B2C00E04B34 /* CoreFoundation.framework in Frameworks */,
+				2FF138172CF9EF3800748720 /* wemeet_app_components.framework in Frameworks */,
+				2FF138272CF9EF3900748720 /* WMWhiteboardSDK.framework in Frameworks */,
 				2FD262A12C6CD8C7000C0D26 /* SystemConfiguration.framework in Frameworks */,
-				2F43F4802C74B17A003233AD /* Tquic.framework in Frameworks */,
-				2F43F48E2C74B17A003233AD /* WeMeet.framework in Frameworks */,
-				2F43F4842C74B17A003233AD /* wemeet_app_sdk.framework in Frameworks */,
-				2F43F47C2C74B17A003233AD /* TencentMeetingSDK.framework in Frameworks */,
-				2F43F4902C74B17A003233AD /* WeMeetKit.framework in Frameworks */,
+				2FF138292CF9EF3900748720 /* xcast.framework in Frameworks */,
+				2FF1381B2CF9EF3800748720 /* wemeet_base.framework in Frameworks */,
+				2FF1382B2CF9EF3900748720 /* xnn_media.framework in Frameworks */,
+				2FF1381D2CF9EF3800748720 /* wemeet_framework.framework in Frameworks */,
+				2FF1380D2CF9EF3800748720 /* ImSDK_Meeting.framework in Frameworks */,
+				2FF138212CF9EF3800748720 /* wemeet_platform.framework in Frameworks */,
+				2FF138152CF9EF3800748720 /* Tquic.framework in Frameworks */,
+				2FF1382D2CF9EF3900748720 /* xnn.framework in Frameworks */,
+				2FF1381F2CF9EF3800748720 /* wemeet_module_api.framework in Frameworks */,
 				2FD262A72C6CDD57000C0D26 /* libc++.tbd in Frameworks */,
-				2F43F48A2C74B17A003233AD /* wemeet_module_api.framework in Frameworks */,
-				2F43F4762C74B17A003233AD /* crash_guard.framework in Frameworks */,
-				2F43F4922C74B17A003233AD /* WMWhiteboardSDK.framework in Frameworks */,
-				2F43F4782C74B17A003233AD /* ImSDK_Meeting.framework in Frameworks */,
+				2FF1380B2CF9EF3800748720 /* crash_guard.framework in Frameworks */,
+				2FF138112CF9EF3800748720 /* TencentMeetingSDK.framework in Frameworks */,
 				2FD262A52C6CDD3D000C0D26 /* libz.tbd in Frameworks */,
-				2F43F4982C74B17A003233AD /* xnn.framework in Frameworks */,
+				2FF138192CF9EF3800748720 /* wemeet_app_sdk.framework in Frameworks */,
 				2FD262AD2C6CE2E6000C0D26 /* Accelerate.framework in Frameworks */,
-				2F43F4882C74B17A003233AD /* wemeet_framework.framework in Frameworks */,
+				2FF138252CF9EF3900748720 /* WeMeetKit.framework in Frameworks */,
+				2FF138232CF9EF3800748720 /* WeMeet.framework in Frameworks */,
 				2FD262A32C6CDD0C000C0D26 /* Security.framework in Frameworks */,
 				6DA43DB552CD472242AB822D /* Pods_iosApp.framework in Frameworks */,
-				2F43F47E2C74B17A003233AD /* TencentSM.framework in Frameworks */,
-				2F43F4962C74B17A003233AD /* xnn_media.framework in Frameworks */,
-				2F43F4942C74B17A003233AD /* xcast.framework in Frameworks */,
-				2F43F4822C74B17A003233AD /* wemeet_app_components.framework in Frameworks */,
-				2F43F48C2C74B17A003233AD /* wemeet_platform.framework in Frameworks */,
-				2F43F4862C74B17A003233AD /* wemeet_base.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +218,31 @@
 				058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2FF137F82CF9EE2200748720 /* TencentMeetingSDK */ = {
+			isa = PBXGroup;
+			children = (
+				2FF137E62CF9EE2200748720 /* crash_guard.framework */,
+				2FF137E72CF9EE2200748720 /* ImSDK_Meeting.framework */,
+				2FF137E82CF9EE2200748720 /* Skia.framework */,
+				2FF137E92CF9EE2200748720 /* TencentMeetingSDK.framework */,
+				2FF137EA2CF9EE2200748720 /* TencentSM.framework */,
+				2FF137EB2CF9EE2200748720 /* Tquic.framework */,
+				2FF137EC2CF9EE2200748720 /* wemeet_app_components.framework */,
+				2FF137ED2CF9EE2200748720 /* wemeet_app_sdk.framework */,
+				2FF137EE2CF9EE2200748720 /* wemeet_base.framework */,
+				2FF137EF2CF9EE2200748720 /* wemeet_framework.framework */,
+				2FF137F02CF9EE2200748720 /* wemeet_module_api.framework */,
+				2FF137F12CF9EE2200748720 /* wemeet_platform.framework */,
+				2FF137F22CF9EE2200748720 /* WeMeet.framework */,
+				2FF137F32CF9EE2200748720 /* WeMeetKit.framework */,
+				2FF137F42CF9EE2200748720 /* WMWhiteboardSDK.framework */,
+				2FF137F52CF9EE2200748720 /* xcast.framework */,
+				2FF137F62CF9EE2200748720 /* xnn_media.framework */,
+				2FF137F72CF9EE2200748720 /* xnn.framework */,
+			);
+			path = TencentMeetingSDK;
 			sourceTree = "<group>";
 		};
 		42799AB246E5F90AF97AA0EF /* Frameworks */ = {
@@ -286,6 +333,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				2FF137F82CF9EE2200748720 /* TencentMeetingSDK */,
 				2FD262AE2C6CE7F3000C0D26 /* iosApp.entitlements */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
@@ -294,6 +342,7 @@
 				2FC3A8072B845B89007A4D0B /* AppDelegateSwift.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 				2FD594882C941CE30049900F /* Launch Screen.storyboard */,
+				2F7C101F2D070767009A4A64 /* BundleSwizzle.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -320,7 +369,7 @@
 				7555FF79242A565900829871 /* Resources */,
 				34CC864743864F95201AFBF2 /* [CP] Copy Pods Resources */,
 				C00644C2F0C5AE5A68B62470 /* [CP] Embed Pods Frameworks */,
-				2F43F49A2C74B17A003233AD /* Embed Frameworks */,
+				2FF1382F2CF9EF3900748720 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -396,7 +445,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "#  if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n#    echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n#    exit 0\n#  fi\n#  cd \"$SRCROOT/..\"\n#  ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
 		};
 		34CC864743864F95201AFBF2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -461,6 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F7C10202D070767009A4A64 /* BundleSwizzle.swift in Sources */,
 				2FC3A8082B845B89007A4D0B /* AppDelegateSwift.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
@@ -603,12 +653,23 @@
 				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iosApp/TencentMeetingSDK",
+				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					composeApp,
+					"-ld_classic",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}";
 				PRODUCT_NAME = "${APP_NAME}";
@@ -633,12 +694,23 @@
 				DEVELOPMENT_TEAM = "${TEAM_ID}";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iosApp/TencentMeetingSDK",
+				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					composeApp,
+					"-ld_classic",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}";
 				PRODUCT_NAME = "${APP_NAME}";

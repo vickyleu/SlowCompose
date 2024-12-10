@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "../BJLiveBase/BJLYYModel.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, BJLAwardType) {

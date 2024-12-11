@@ -1,0 +1,120 @@
+CREATE TABLE  IF NOT EXISTS  UserSession (
+     pk INTEGER PRIMARY KEY AUTOINCREMENT,
+     id TEXT  NOT NULL DEFAULT '',
+     account TEXT NOT NULL DEFAULT '',
+     avatar TEXT NOT NULL DEFAULT '',
+     birthday TEXT NOT NULL DEFAULT '',
+     carsi TEXT NOT NULL DEFAULT '',
+     city TEXT NOT NULL DEFAULT '',
+     city_text TEXT NOT NULL DEFAULT '',
+     college_id TEXT NOT NULL DEFAULT '',
+     create_time TEXT NOT NULL DEFAULT '',
+     degree TEXT NOT NULL DEFAULT '',
+     education TEXT NOT NULL DEFAULT '',
+     email TEXT NOT NULL DEFAULT '',
+     english_name TEXT NOT NULL DEFAULT '',
+     exp INTEGER NOT NULL DEFAULT 0,
+     face_recognition_id TEXT NOT NULL DEFAULT '',
+     gender TEXT NOT NULL DEFAULT '',
+
+     identified TEXT NOT NULL DEFAULT '',
+     identify TEXT NOT NULL DEFAULT '',
+     interests TEXT NOT NULL DEFAULT '',
+     intro TEXT NOT NULL DEFAULT '',
+     is_assistant INTEGER NOT NULL DEFAULT 0,
+     is_identify INTEGER NOT NULL DEFAULT 0,
+     is_overseas_student TEXT NOT NULL DEFAULT '',
+     is_teacher INTEGER NOT NULL DEFAULT 0,
+     last_edit_pwd_time TEXT NOT NULL DEFAULT '',
+     last_login_time TEXT NOT NULL DEFAULT '',
+     login_host TEXT NOT NULL DEFAULT '',
+     major_id TEXT NOT NULL DEFAULT '',
+     name TEXT NOT NULL DEFAULT '',
+     nick TEXT NOT NULL DEFAULT '',
+     openid TEXT NOT NULL DEFAULT '',
+     openid_qq TEXT NOT NULL DEFAULT '',
+     openid_weibo TEXT NOT NULL DEFAULT '',
+     org_id TEXT NOT NULL DEFAULT '',
+     phone TEXT NOT NULL DEFAULT '',
+     province TEXT NOT NULL DEFAULT '',
+     province_text TEXT NOT NULL DEFAULT '',
+     rank TEXT NOT NULL DEFAULT '',
+     raw_passwd TEXT NOT NULL DEFAULT '',
+     read_violation_notice TEXT NOT NULL DEFAULT '',
+     reg_from TEXT NOT NULL DEFAULT '',
+     remember INTEGER NOT NULL DEFAULT 0,
+     sign_img TEXT NOT NULL DEFAULT '',
+     status TEXT NOT NULL DEFAULT '',
+     sub TEXT NOT NULL DEFAULT '',
+     title TEXT NOT NULL DEFAULT '',
+     token TEXT NOT NULL DEFAULT '',
+     unionid_weixin TEXT NOT NULL DEFAULT '',
+     update_time TEXT NOT NULL DEFAULT ''
+ );
+
+CREATE TABLE IF NOT EXISTS SearchHistory (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    keyword TEXT NOT NULL UNIQUE, -- 添加 UNIQUE 约束
+    timestamp INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS  DownloadTask (
+    id TEXT  NOT NULL ,               -- 下载任务唯一标识 (UUID 或 组合 resourceId + url)
+    url TEXT NOT NULL,                 -- 下载链接
+    resourceId TEXT NOT NULL,          -- 资源包ID
+    resourceName TEXT NOT NULL,        -- 资源包名称
+    filePath TEXT NOT NULL,            -- 文件保存路径
+    taskType INTEGER NOT NULL,         -- 任务类型: baijiayun = 1, other = 2
+    category TEXT NOT NULL,            -- 任务分类: 1-=video, 2=document, 3=other
+    examType INTEGER NOT NULL,         -- 考试类型
+    level INTEGER NOT NULL,            -- 学历层次
+    status TEXT NOT NULL,              -- 下载状态: Pending, Downloading, Completed, Failed, Paused
+    totalChunks INTEGER NOT NULL,       -- 分片总数
+    downloadLength INTEGER NOT NULL DEFAULT 0,       -- 下载总大小
+    totalSize INTEGER NOT NULL,       -- 下载总大小
+    showName TEXT NOT NULL DEFAULT '',       -- 显示的名字
+    fileName TEXT NOT NULL DEFAULT '',       -- 实际名字
+    recordId TEXT NOT NULL DEFAULT '',      -- 记录id
+    recordStudentReleativeId TEXT NOT NULL DEFAULT '',      -- 记录优课学生id
+    lastProgress REAL NOT NULL DEFAULT 0.0, -- 最后进度
+     -- 其他字段
+    PRIMARY KEY (id, resourceId)
+);
+
+
+CREATE TABLE IF NOT EXISTS   DownloadChunk (
+    chunkId TEXT PRIMARY KEY,          -- 分片唯一标识 (UUID)
+    taskId TEXT NOT NULL,              -- 关联的下载任务ID
+    resourceId TEXT NOT NULL,              -- 关联的下载任务ID
+    chunkIndex INTEGER NOT NULL,       -- 分片索引
+    startByte INTEGER NOT NULL,        -- 分片起始字节
+    endByte INTEGER NOT NULL,          -- 分片结束字节
+    currentByte INTEGER NOT NULL DEFAULT 0,      -- 当前下载字节
+    FOREIGN KEY (taskId, resourceId) REFERENCES DownloadTask(id, resourceId) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS ViewingRecordModel (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,   -- 主键
+    timestamp TEXT NOT NULL,             -- 事件操作时间
+    action TEXT NOT NULL,                   -- 事件操作类型: start, pause, resume, stop
+    watchTime REAL NOT NULL DEFAULT 0.0,                -- 观看时长
+    fid TEXT NOT NULL,                      -- 视频文件id
+    progress REAL NOT NULL DEFAULT 0.0,                      -- 视频文件id
+    operator TEXT NOT NULL,                 -- 操作者
+    recordId TEXT NOT NULL,                 -- 记录id
+    UNIQUE (id)
+);
+CREATE INDEX IF NOT EXISTS idx_viewrecord_fid ON ViewingRecordModel(operator,fid);
+
+
+CREATE INDEX IF NOT EXISTS idx_searchHistory_timestamp ON SearchHistory(timestamp);
+CREATE INDEX IF NOT EXISTS idx_searchHistory_keyword_timestamp ON SearchHistory(keyword, timestamp);
+
+CREATE INDEX IF NOT EXISTS idx_downloadTask_resourceId_id ON DownloadTask(id,resourceId);
+CREATE INDEX IF NOT EXISTS idx_downloadTask_resourceId ON DownloadTask(resourceId);
+CREATE INDEX IF NOT EXISTS idx_downloadTask_resourceId_type ON DownloadTask(resourceId,taskType);
+CREATE INDEX IF NOT EXISTS idx_downloadTask_status ON DownloadTask(status);
+
+CREATE INDEX IF NOT EXISTS idx_downloadChunk_task_resource ON DownloadChunk(taskId, resourceId);
+CREATE INDEX IF NOT EXISTS idx_downloadChunk_task_chunkId ON DownloadChunk(chunkId);
+CREATE INDEX IF NOT EXISTS idx_downloadChunk_task_chunkIndex ON DownloadChunk(chunkIndex);

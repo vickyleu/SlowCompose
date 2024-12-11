@@ -1,0 +1,15 @@
+-- 本地存储的观看记录操作日志
+allRecord:
+    SELECT * FROM ViewingRecordModel  WHERE operator = ? ORDER BY timestamp DESC;
+
+-- 插入观看记录
+insertRecord:
+    INSERT INTO ViewingRecordModel (timestamp, action, watchTime, fid, progress, operator, recordId)
+    VALUES (?, ?, ?,?, ?, ?, ?);
+
+-- 清空观看记录
+cleanRecord:
+    DELETE FROM ViewingRecordModel WHERE operator = ?;
+-- 清空观看记录
+cleanAllRecord:
+    DELETE FROM ViewingRecordModel;

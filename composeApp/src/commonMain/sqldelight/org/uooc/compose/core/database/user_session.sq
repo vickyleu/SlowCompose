@@ -1,0 +1,12 @@
+-- 插入或更新用户会话信息，确保只有一行数据，id设为1
+updateUserSession:
+INSERT OR REPLACE INTO UserSession (pk, id, account, avatar, birthday, carsi, city, city_text, college_id, create_time, degree, education, email, english_name, exp, face_recognition_id, gender, identified, identify, interests, intro, is_assistant, is_identify, is_overseas_student, is_teacher, last_edit_pwd_time, last_login_time, login_host, major_id, name, nick, openid, openid_qq, openid_weibo, org_id, phone, province, province_text, rank, raw_passwd, read_violation_notice, reg_from, remember, sign_img, status, sub, title, token, unionid_weixin, update_time)
+VALUES (1, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-- 获取用户会话信息，假设只有一行数据，id设为1
+getUserSession:
+SELECT * FROM UserSession WHERE pk = 1;
+
+-- 删除用户会话信息，假设只有一行数据，id设为1
+deleteUserSession:
+DELETE FROM UserSession WHERE pk = 1;

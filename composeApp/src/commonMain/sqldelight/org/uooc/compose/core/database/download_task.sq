@@ -1,0 +1,245 @@
+-- 多任务分片下载，需记录任务及分片状态。
+-- 每个下载任务按资源包分组（resourceId）。
+-- 分类管理任务：视频、课件、其他。
+-- 任务需支持开始、暂停、恢复、重试操作。
+-- 提供实时进度更新，任务与分片进度分离管理。
+-- 支持外部SDK任务状态同步，统一管理。
+
+-- 新增下载任务
+--  需要在插入前判断是否已存在，存在则更新状态
+insertDownloadTaskIfNotExists:
+INSERT OR REPLACE INTO DownloadTask (
+    id, url, resourceId, resourceName,taskType, filePath, category,examType,level, status, totalChunks, totalSize, showName,fileName
+)
+VALUES (?, ?, ?, ?, ?,?, ?,?,?, ?, ?, ?,?,?);
+
+
+-- 更新所有任务是Downloading状态的任务为Paused, 用于处理应用突然被关闭后重新打开的情况
+updateAllDownloadingTasksToPaused:
+UPDATE DownloadTask SET status = 'Paused' WHERE status != 'Completed' AND status != 'Failed';
+
+
+
+-- 查询任务fileName
+fileNameByTaskId:
+SELECT fileName,totalSize FROM DownloadTask WHERE id = ? AND resourceId = ?;
+
+-- 通过任务id更新任务状态
+updateTaskStatus:
+UPDATE DownloadTask
+SET status = ?,
+    fileName = ?,
+    totalSize = ?,
+    downloadLength = CASE
+        WHEN status = 'Completed' THEN totalSize  -- 当状态为 'Completed' 时，设置 downloadLength = totalSize
+        ELSE ?                             -- 否则设置 downloadLength 为传入的值
+    END
+WHERE id = ?
+  AND resourceId = ?;
+
+
+updateTaskStatusWithRecord:
+UPDATE DownloadTask
+SET  lastProgress = ?,  -- 更新 lastProgress
+     recordStudentReleativeId = ?,  -- 更新 lastProgress
+     recordId = ?  -- 更新 recordId
+WHERE id = ?
+  AND resourceId = ?;
+
+
+-- 通过资源包id查询任务列表
+getTasksByResourceId:
+SELECT * FROM DownloadTask WHERE resourceId = ?;
+
+-- 通过任务id插入下载分片
+insertDownloadChunkIfNotExists:
+INSERT OR REPLACE INTO DownloadChunk (chunkId, taskId,resourceId, chunkIndex, startByte, endByte)
+VALUES (?, ?, ?,?, ?, ?);
+
+-- 通过任务id查询分片列表
+getChunksByTaskId:
+SELECT * FROM DownloadChunk WHERE taskId = ? AND resourceId = ?;
+
+-- 更新分片状态
+updateChunkProgress:
+UPDATE DownloadChunk
+SET currentByte = ?
+WHERE chunkId = ?
+  AND taskId = ?
+  AND resourceId = ?
+  AND currentByte < ?; -- 防止重复更新
+
+
+-- 通过任务id和资源id查询任务, 用于判断任务是否存在, 并且获取所有分片的进度
+getTaskById:
+SELECT * FROM DownloadTask WHERE id = ? AND resourceId = ?;
+
+-- 通过任务id和资源id查询任务, 用于判断任务是否存在, 并且获取所有分片的进度
+getTaskAndChunksById:
+SELECT
+    t.id AS task_id,
+    t.url,
+    t.resourceId,
+    t.resourceName,
+    t.filePath,
+    t.taskType,
+    t.category,
+    t.status,
+    t.totalChunks,
+    t.totalSize,
+    t.downloadLength,
+    t.showName,
+    t.fileName,
+    t.examType,
+    t.recordStudentReleativeId,
+    t.level,t.recordId,t.lastProgress,
+    '[' || GROUP_CONCAT(
+        '{"chunkId":"' || c.chunkId || '",'
+        || '"chunkIndex":' || c.chunkIndex || ','
+        || '"startByte":' || c.startByte || ','
+        || '"currentByte":' || c.currentByte || ','
+        || '"endByte":' || c.endByte || '}'
+    ) || ']' AS chunks
+FROM
+    DownloadTask t
+LEFT JOIN
+    DownloadChunk c ON t.id = c.taskId AND t.resourceId = c.resourceId
+WHERE
+    t.id = ? AND t.resourceId = ?
+GROUP BY
+    t.id ORDER BY t.resourceName DESC;
+
+-- 全部暂停或开始
+updateAllTasksStatus:
+UPDATE DownloadTask SET status = ? WHERE status != 'Completed' ; -- AND status != 'Failed'
+
+-- 通过资源包id和分类查询任务列表
+getTasksByResourceIdAndCategory:
+SELECT * FROM DownloadTask WHERE resourceId = ? AND category = ?;
+
+-- 通过资源包id和分类查询任务列表, 并获取所有分片的进度
+getTasksAndChunksByResourceId:
+SELECT
+    t.id AS task_id,
+    t.url,
+    t.resourceId,
+    t.resourceName,
+    t.filePath,
+    t.taskType,
+    t.category,
+    t.status,
+    t.totalChunks,
+    t.totalSize,
+    t.downloadLength,
+    t.showName,
+    t.fileName,
+        t.examType,
+        t.recordStudentReleativeId,
+        t.level,t.recordId,t.lastProgress,
+    '[' || GROUP_CONCAT(
+        '{"chunkId":"' || c.chunkId || '",'
+        || '"chunkIndex":' || c.chunkIndex || ','
+        || '"currentByte":' || c.currentByte || ','
+        || '"startByte":' || c.startByte || ','
+        || '"endByte":' || c.endByte || '}'
+    ) || ']' AS chunks
+FROM
+    DownloadTask t
+LEFT JOIN
+    DownloadChunk c ON t.id = c.taskId AND t.resourceId = c.resourceId
+WHERE
+    t.resourceId = ?
+GROUP BY
+    t.id ORDER BY t.resourceName DESC;
+
+-- 查询所有任务，并获取所有分片的进度
+getAllTasksAndChunks:
+SELECT
+    t.id AS task_id,
+    t.url,
+    t.resourceId,
+    t.resourceName,
+    t.filePath,
+    t.taskType,
+    t.category,
+    t.status,
+    t.totalChunks,
+    t.totalSize,
+    t.downloadLength,
+    t.showName,
+    t.fileName,
+    t.examType,
+    t.recordStudentReleativeId,
+    t.level,t.recordId,t.lastProgress,
+    '[' || GROUP_CONCAT(
+        '{"chunkId":"' || c.chunkId || '",'
+        || '"chunkIndex":' || c.chunkIndex || ','
+        || '"currentByte":' || c.currentByte || ','
+        || '"startByte":' || c.startByte || ','
+        || '"endByte":' || c.endByte || '}'
+    ) || ']' AS chunks
+FROM
+    DownloadTask t
+LEFT JOIN
+    DownloadChunk c ON t.id = c.taskId AND t.resourceId = c.resourceId
+GROUP BY
+    t.id ORDER BY t.resourceName DESC;
+
+-- 获取最新的正在下载中的任务, 只包含正在下载的任务,准备中,下载中, 失败和暂停的不算
+getActiveDownloadTasks:
+SELECT * FROM DownloadTask WHERE status != 'Completed' ORDER BY id DESC;
+
+
+getActiveDownloadTasksWithChunks:
+SELECT
+    t.id AS task_id,
+    t.url,
+    t.resourceId,
+    t.resourceName,
+    t.filePath,
+    t.taskType,
+    t.category,
+    t.status,
+    t.totalChunks,
+    t.totalSize,
+    t.downloadLength,
+    t.showName,
+    t.fileName,
+    t.examType,
+    t.level,
+    t.recordId,
+    t.recordStudentReleativeId,
+    t.lastProgress,
+    '[' || GROUP_CONCAT(
+        '{"chunkId":"' || c.chunkId || '",'
+        || '"chunkIndex":' || c.chunkIndex || ','
+        || '"currentByte":' || c.currentByte || ','
+        || '"startByte":' || c.startByte || ','
+        || '"endByte":' || c.endByte || '}'
+    ) || ']' AS chunks
+FROM
+    DownloadTask t
+LEFT JOIN
+    DownloadChunk c ON t.id = c.taskId AND t.resourceId = c.resourceId
+    WHERE t.status != 'Completed'
+GROUP BY
+    t.id  ORDER BY t.resourceName DESC;
+
+
+-- 删除所有下载任务及关联的分片
+deleteAllTasks:
+DELETE FROM DownloadTask;
+
+-- 通过任务id删除单个任务及其所有分片
+deleteTaskAndChunksById:
+DELETE FROM DownloadTask WHERE id = ? AND resourceId = ?;
+
+-- 通过任务id删除所有分片
+deleteChunksById:
+DELETE FROM DownloadChunk WHERE taskId = ? AND resourceId = ?;
+
+
+
+-- 通过资源包id删除其中所有任务及其所有分片
+deleteTasksAndChunksByResourceId:
+DELETE FROM DownloadTask WHERE resourceId = ?;

@@ -37,7 +37,6 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.uooc.compose.base.BuildConfigImpl
 //import org.uooc.compose.generated.resource
 import org.uooc.compose.resources.Res
-import org.uooc.compose.ui.screen.CornerSide
 
 @OptIn(ExperimentalResourceApi::class)
 internal suspend fun Res.file(path: String): ByteArray {
@@ -179,186 +178,13 @@ fun Modifier.drawCard(
     rect: Rect,
     borderWidth: Dp = 0.dp,
     roundCorner: Dp,
-    cornerSide: CornerSide,
     alpha: Float = 1.0f,
     brush: ((Rect) -> Brush)? = null,
     colorBackground: ((Rect) -> Color)? = null,
     brush2: ((Rect) -> Brush)? = null,
 ): Modifier {
 
-    fun genericShape(path: Path): GenericShape {
-        return GenericShape { size, _ ->
-            addPath(path)
-        }
-    }
-
-    var modifier = this
-    with(LocalDensity.current) {
-        fun genericPath(rect: Rect, roundCorner: Dp, cornerSide: CornerSide): Pair<Path, Path> {
-            val borderPath = Path()
-            val innerPath = Path()
-            fun Rect.shrinkRect(inset: Dp, cornerSide: CornerSide): Rect {
-                val insetPx = inset.toPx()
-                return Rect(
-                    left = rect.left + if (
-                        cornerSide == CornerSide.TOP_LEFT
-                        || cornerSide == CornerSide.BOTTOM_LEFT
-                    ) insetPx else 0f,
-
-                    top = rect.top + if (
-                        cornerSide == CornerSide.TOP_LEFT
-                        || cornerSide == CornerSide.TOP_RIGHT
-                    ) insetPx else 0f,
-
-                    right = rect.right - if (
-                        cornerSide == CornerSide.TOP_RIGHT
-                        || cornerSide == CornerSide.BOTTOM_RIGHT
-                    ) insetPx else 0f,
-
-                    bottom = rect.bottom - if (
-                        cornerSide == CornerSide.BOTTOM_LEFT
-                        || cornerSide == CornerSide.BOTTOM_RIGHT
-                    ) insetPx else 0f
-                )
-            }
-
-            fun Path.cut(rect: Rect): Path {
-                val cornerRadius = roundCorner.roundToPx()
-                when (cornerSide) {
-                    CornerSide.TOP_LEFT, CornerSide.BOTTOM_LEFT -> {
-                        // 移动到左上角圆角位置
-                        if (cornerSide == CornerSide.TOP_LEFT) {
-                            moveTo(rect.left + 2 * cornerRadius, rect.top)
-//                                // 画左上角圆弧
-                            //三点钟方向为0°,顺时针正值,逆时针负值,所以-90°表示逆时针旋转90°
-                            arcTo(
-                                Rect(
-                                    rect.left,
-                                    rect.top,
-                                    rect.left + 2 * cornerRadius,
-                                    rect.top + 2 * cornerRadius
-                                ),
-                                -90f,
-                                -90f,
-                                false
-                            )
-                            // 画左边线条
-                            lineTo(rect.left, rect.bottom)
-                            // 画下边线条
-                            lineTo(rect.right, rect.bottom)
-                            // 画右下角直角
-                            lineTo(rect.right, rect.top)
-                        } else {
-                            moveTo(rect.left, rect.bottom - cornerRadius)
-                            // 画左下角圆弧
-                            arcTo(
-                                Rect(
-                                    rect.left,
-                                    rect.bottom - 2 * cornerRadius,
-                                    rect.left + 2 * cornerRadius,
-                                    rect.bottom
-                                ),
-                                180f,
-                                90f,
-                                false
-                            )
-                            // 画下边线条
-                            lineTo(rect.right, rect.bottom)
-                            // 画右下角直角
-                            lineTo(rect.right, rect.top)
-                            // 画右上角直角
-                            lineTo(rect.left + cornerRadius, rect.top)
-                        }
-
-                    }
-
-                    CornerSide.TOP_RIGHT, CornerSide.BOTTOM_RIGHT -> {
-                        // 移动到右上角位置
-                        if (cornerSide == CornerSide.TOP_RIGHT) {
-                            moveTo(rect.right - cornerRadius, rect.top)
-                            // 画右上角圆弧
-                            arcTo(
-                                Rect(
-                                    rect.right - 2 * cornerRadius,
-                                    rect.top,
-                                    rect.right,
-                                    rect.top + 2 * cornerRadius
-                                ),
-                                -90f,
-                                90f,
-                                false
-                            )
-                            // 画右边线条
-                            lineTo(rect.right, rect.bottom)
-                        } else {
-                            moveTo(rect.right, rect.top)
-                            lineTo(rect.right, rect.bottom - cornerRadius)
-                            // 画右下角圆弧
-                            arcTo(
-                                Rect(
-                                    rect.right - 2 * cornerRadius,
-                                    rect.bottom - 2 * cornerRadius,
-                                    rect.right,
-                                    rect.bottom
-                                ),
-                                0f,
-                                90f,
-                                false
-                            )
-                        }
-
-                        // 画下边线条
-                        lineTo(rect.left, rect.bottom)
-                        // 画左下角直角
-                        lineTo(rect.left, rect.top)
-                        // 画左上角直角
-                        lineTo(rect.right - cornerRadius, rect.top)
-                    }
-                }
-                close()
-                return this
-            }
-
-            val outline = borderPath.cut(rect)
-            val inner = innerPath.cut(
-                rect.shrinkRect(
-                    borderWidth,
-                    cornerSide
-                )
-            )
-            return outline to inner
-        }
-
-        val path = remember {
-            genericPath(
-                rect = rect,
-                roundCorner = roundCorner,
-                cornerSide = cornerSide
-            )
-        }
-
-        val (borderPath, innerPath) = path
-
-        if (borderWidth > 0.dp && brush != null) {
-            modifier = modifier.background(
-                brush.invoke(borderPath.getBounds()),
-                shape = genericShape(borderPath), alpha = alpha
-            )
-        }
-        return modifier
-            .let {
-                if (brush2 != null) {
-                    it.background(
-                        brush2.invoke(innerPath.getBounds()), shape = genericShape(innerPath)
-                    )
-                } else if (colorBackground != null) {
-                    it.background(
-                        colorBackground.invoke(innerPath.getBounds()),
-                        shape = genericShape(innerPath)
-                    )
-                } else it
-            }
-    }
+    return this
 
 }
 

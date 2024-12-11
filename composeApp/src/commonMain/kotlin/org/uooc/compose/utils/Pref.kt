@@ -11,7 +11,6 @@ import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.descriptors.SerialKind
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializerOrNull
-import org.uooc.compose.models.NoProguard
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
@@ -134,22 +133,6 @@ class Pref<T : Any>(
                 })
             }
 
-            NoProguard::class -> {
-                val content: String? = settings.getStringOrNull(key = name)
-                if (content != null) {
-                    default::class.serializerOrNull()?.let {
-                        // 我想将NoProguard的序列化存储为文本信息,这里是从文本信息中还原出来
-                        try {
-                            Json.decodeFromString(it.nullable, content) as? T
-                        } catch (e: Exception) {
-                            null
-                        }
-                    } ?: default
-                } else {
-                    default
-                }
-            }
-
             else -> throw IllegalArgumentException("Invalid type!")
         }
         state.value = s
@@ -181,18 +164,6 @@ class Pref<T : Any>(
 
             Boolean::class -> {
                 settings.set(key = (name), value = value as Boolean)
-            }
-
-            NoProguard::class -> {
-                @Suppress("UNCHECKED_CAST")
-                (default::class.serializerOrNull() as? KSerializer<T>)?.apply {
-                    try {
-                        val json = Json.encodeToString(this@apply, value)
-                        settings.set(key = (name), value = json)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
             }
 
             else -> throw IllegalArgumentException("Invalid type!")
